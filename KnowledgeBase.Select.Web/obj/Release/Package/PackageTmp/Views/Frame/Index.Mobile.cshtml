@@ -1,0 +1,230 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>疾病知识库系统平台</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/MyJs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="~/Scripts/MyJs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" rel="stylesheet"/>
+    <script src="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.min.js"></script>
+    <link href="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                cache: false,
+                type: "get",
+                url: '@Url.Action("AutocompleteDisease")',
+                dataType: "text",
+                success: function (data) {
+                    jsonArr = eval("(" + data + ")");
+                    $("#DiseaseList").autocomplete(jsonArr, {
+                        autoFill: false,
+                        matchContains: true,
+                        //width: '50%',
+                        max: 10,
+                        scrollHeight: 300,
+                        matchContains: true,
+                        matchSubset: true,
+                        matchCase: true,
+                        scroll: true,
+                        formatItem: function (row, i, max) {
+                            return "<span style='font-weight:bold;font-size:12pt;float:left'>" + i + "/" + max + "：" + row.VDiseaseList + "</span><span style='font-weight:bold;font-size:12pt;float:right;color:green'>[" + row.VDiseaseType + "]" + "</span>";
+                        },
+                        formatMatch: function (row, i, max) {
+                            return row.VDiseaseList;
+                        },
+                        formatResult: function (row) {
+                            return row.VDiseaseList;
+                        }
+                    }).result(function (event, row, formatted) {
+                        $("#DiseaseCode").val(row.VDiseaseCode); 
+                    });
+
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+            }); 
+        });
+
+        function Search() {
+            var diseaseCode = $("#DiseaseCode").val();
+            var diseaseName = $("#DiseaseList").val();
+            $("#ModulesContents div").remove();
+            $("#Title").find("option").not(":first").remove()
+            $("#myPopup div").remove();
+            if (diseaseCode != "") {
+                $.ajax({
+                    cache: false,
+                    type: "get",
+                    url: '@Url.Action("SearchByCode")',
+                    dataType: "text",
+                    data: { DiseaseCode: diseaseCode },
+                    success: function (data) {
+                        var jsonArr = eval("(" + data + ")");
+                        var jsonRes = jsonArr.data;
+                        var strHTML = "",nameList="",divHtml="";
+                        var arrDiseaseName = new Array(), arrYWMC = new Array(), arrYWSX = new Array();
+                        arrDiseaseName = jsonRes[0].VDiseaseName.split('}');
+                        arrYWMC = jsonRes[0].VYWMC.split('}');
+                        arrYWSX = jsonRes[0].VYWSX.split('}');
+                        if (arrDiseaseName[0] != "") {
+                            nameList += "疾病中文名称：";
+                            for (var i = 0; i < arrDiseaseName.length - 1; i++) {
+                                nameList += arrDiseaseName[i] + "、";
+                            }
+                            nameList = nameList.substr(0, nameList.length - 1) + " ";
+                        }
+                        if (arrYWMC[0] != "") {
+                            nameList += "疾病英文全称：";
+                            for (var i = 0; i < arrYWMC.length - 1; i++) {
+                                nameList += arrYWMC[i] + "、";
+                            }
+                            nameList = nameList.substr(0, nameList.length - 1) + " ";
+                        }
+                        if (arrYWSX[0] != "") {
+                            nameList += "疾病英文缩写：";
+                            for (var i = 0; i < arrYWSX.length - 1; i++) {
+                                nameList += arrYWSX[i] + "、";
+                            }
+                            nameList = nameList.substr(0, nameList.length - 1) + " ";
+                        }
+                        strHTML += '<div style="margin:10px 0px"><span style="font-weight:bold;">' + nameList + '</div>';
+                        
+                        for (var i = 0; i < jsonRes.length; i++) {
+                            strHTML += '<div id="div' + jsonRes[i].VModulesId + '">' +
+                                       '<div style="margin:10px 0px"><span style="font-size:22pt;font-weight:bold;">' + jsonRes[i].VModulesName + '</span></div>' +
+                                       '<div>' + jsonRes[i].VModulesContent + '</div></div>';
+
+                            divHtml += ' <div style="padding-top:12px;padding-left:10%;">' +
+                                        '<label><input type="checkbox" checked="checked" name="modules" id="CB' + jsonRes[i].VModulesId + '" onclick="Animate(' + jsonRes[i].VModulesId + ')" value="' + jsonRes[i].VModulesId + '"/>' + jsonRes[i].VModulesName + '</label>' +
+                                        '</div>';
+                        }
+                        $("#ModulesContents").css("background-color", "#ffffff");
+                        $("#ModulesContents").append(strHTML);
+                        $("#myPopup").append(divHtml);
+                        $("#ModalDiv").css("display", "block");
+                    },
+                    error: function () {
+                        alert("系统繁忙，请联系管理员");
+                    }
+                });
+                $("#DiseaseCode").val("");
+            } else if (diseaseCode == "" && diseaseName != "") {
+                $.ajax({
+                    cache: false,
+                    type: "get",
+                    url: '@Url.Action("SearchByName")',
+                    dataType: "text",
+                    data: { DiseaseName: diseaseName },
+                    success: function (data) {
+                        var jsonArr = eval("(" + data + ")");
+                        if (jsonArr.status == "error") {
+                            alert(jsonArr.data);
+                        } else {
+                            var strHTML = "", nameList = "", divHtml = "";
+                            var jsonRes = jsonArr.data;
+                            var arrDiseaseName = new Array(), arrYWMC = new Array(), arrYWSX = new Array();
+                            arrDiseaseName = jsonRes[0].VDiseaseName.split('}');
+                            arrYWMC = jsonRes[0].VYWMC.split('}');
+                            arrYWSX = jsonRes[0].VYWSX.split('}');
+                            if (arrDiseaseName[0] != "") {
+                                nameList += "疾病中文名称：";
+                                for (var i = 0; i < arrDiseaseName.length - 1; i++) {
+                                    nameList += arrDiseaseName[i] + "、";
+                                }
+                                nameList = nameList.substr(0, nameList.length - 1) + " ";
+                            }
+                            if (arrYWMC[0] != "") {
+                                nameList += "疾病英文全称：";
+                                for (var i = 0; i < arrYWMC.length - 1; i++) {
+                                    nameList += arrYWMC[i] + "、";
+                                }
+                                nameList = nameList.substr(0, nameList.length - 1) + " ";
+                            }
+                            if (arrYWSX[0] != "") {
+                                nameList += "疾病英文缩写：";
+                                for (var i = 0; i < arrYWSX.length - 1; i++) {
+                                    nameList += arrYWSX[i] + "、";
+                                }
+                                nameList = nameList.substr(0, nameList.length - 1) + " ";
+                            }
+                            strHTML += '<div style="margin:10px 0px"><span style="font-weight:bold;">' + nameList + '</div>';
+
+                            for (var i = 0; i < jsonRes.length; i++) {
+                                strHTML += '<div id="div' + jsonRes[i].VModulesId + '">' +
+                                        '<div style="margin:10px 0px"><span style="font-size:22pt;font-weight:bold;">' + jsonRes[i].VModulesName + '</span></div>' +
+                                        '<div>' + jsonRes[i].VModulesContent + '</div></div>';
+                                divHtml += ' <div style="padding-top:12px;padding-left:10%;">' +
+                                            '<label><input type="checkbox" checked="checked" name="modules" id="CB' + jsonRes[i].VModulesId + '" onclick="Animate(' + jsonRes[i].VModulesId + ')" value="' + jsonRes[i].VModulesId + '"/>' + jsonRes[i].VModulesName + '</label>' +
+                                            '</div>';
+                            }
+                            $("#ModulesContents").css("background-color", "#ffffff");
+                            $("#ModulesContents").append(strHTML);
+                            $("#myPopup").append(divHtml);
+                            $("#ModalDiv").css("display", "block");
+                        }
+                    },
+                    error: function () {
+                        alert("系统繁忙，请联系管理员");
+                    }
+                });
+            } else {
+                alert("请输入疾病名称");
+            }
+        }
+        function MobileQuit() {
+            window.location.href = "/Home/Index";
+        }
+        function MobileReload() {
+            window.location.reload();
+        }
+        function Animate(code) {
+            if ($("#CB" + code).is(":checked")) {
+                $("#div" + code).slideDown("slow");
+            } else {
+                $("#div" + code).slideUp("slow");
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div data-role="page" id="page">
+    <div data-role="header" style="background-color:#3388cc;color:#ffffff">
+        <h4>疾病知识库查询 </h4>
+        <a href="javascript:void(0)" data-icon="back" onclick="MobileQuit()" class="ui-btn-left" data-mini="true">退出</a>
+        <a href="javascript:void(0)" data-icon="refresh" onclick="MobileReload()" class="ui-btn-right" data-mini="true">刷新</a>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <form id="form1" name="form1">
+            <input type="hidden" id="DiseaseCode" name="DiseaseCode" />
+            <div class="ui-field-contain">
+                <input type="search" name="DiseaseList" id="DiseaseList" placeholder="搜索内容...">
+                <div style="text-align:center">
+                    <div id="ModalDiv" style="display:none">
+                        <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">疾病标题弹窗</a>
+                        <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+                            
+                        </div>
+                    </div>
+
+                    <input type="button" id="ZKSearch" name="ZKSearch" class="ui-btn" data-line="true" value="中康查询" onclick="Search();"/>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    <div data-role="main" class="ui-content" id="ModulesContents"> 
+    </div>
+
+</div>
+</body>
+</html>

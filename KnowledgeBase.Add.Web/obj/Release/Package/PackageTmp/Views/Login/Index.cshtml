@@ -1,0 +1,321 @@
+﻿
+@{
+    Layout = null;
+}
+
+@*<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>疾病知识库系统平台</title>
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/MyJs/global.js"></script>
+    <style type="text/css">
+        <!--
+        .STYLE20 a:hover {
+            font-size: 16px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        {
+            font-size: 15px;
+            font-family: "宋体";
+            color: #FFFFFF;
+        }
+
+        .STYLE79 a:hover {
+            font-size: 15px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        { 
+            font-size: 14px;
+            font-family: "宋体";
+            color: #FFFFFF;
+        }
+
+        SS .STYLE21 {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .STYLE22 {
+            font-size: 12px;
+            vertical-align: 1%;
+            line-height: normal;
+        }
+
+        .STYLE25 {
+            font-size: 14px;
+            line-height: 15px;
+        }
+
+        .STYLE29 {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12px;
+            vertical-align: 5%;
+            line-height: normal;
+            color: #000080;
+        }
+
+        .STYLE27 {
+            font-size: 12px;
+        }
+
+        a:link {
+            text-decoration: none;
+            color: #0000FF;
+        }
+
+        a:visited {
+            color: #0000FF;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: #0000FF;
+            text-decoration: none;
+        }
+
+        .STYLE36 {
+            font-family: "宋体";
+        }
+
+        a {
+            color: #000080;
+        }
+
+        .STYLE40 {
+            font-size: 12px;
+            color: #000080;
+        }
+
+        .STYLE46 {
+            font-size: 10pt;
+        }
+
+        .STYLE56 {
+            font-size: 15px;
+            color: #FFFFFF;
+        }
+
+        .STYLE63 {
+            color: #000099;
+        }
+
+        .STYLE66 {
+            font-size: 14px;
+            line-height: 15px;
+            color: #000099;
+        }
+
+        BODY {
+            COLOR: #009933;
+            FONT-SIZE: 10pt;
+        }
+
+        UL {
+            FONT-SIZE: 10pt;
+        }
+
+        .STYLE69 {
+            font-size: 10pt;
+            line-height: 20px;
+            color: #009933;
+        }
+
+        .STYLE76 {
+            font-size: 14px;
+        }
+
+        .STYLE78 {
+            color: #000080;
+        }
+
+        .STYLE79 {
+            font-size: 15pt;
+        }
+
+        .STYLE80 {
+            font-size: 15px;
+        }
+
+        #newsIframe {
+            height: 61px;
+        }
+
+        .auto-style1 {
+            height: 19px;
+        }
+        -->
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#img").attr('src', '/Login/ShowValidateCode?i=' + Math.random());
+
+            $("#img").click(function () {
+                $("#img").attr('src', '/Login/ShowValidateCode?i=' + Math.random());
+            });
+
+            var h = 100;
+            $("#newsIframe").height(h);
+            setInterval(function () {
+                reinitIframe('newsIframe');
+            }, 200);
+
+            $("#Login").click(function () {
+                var form1 = $("#form1").serializeArray();
+                $.ajax({
+                    cache: false,
+                    asycn: true,
+                    type: "post",
+                    url: "@Url.Action("DengLu","Login")",
+                    dataType: "text",
+                    data: form1,
+                    success: function (data) {
+                        if (data == "ok") {
+                            location.href = "@Url.Action("Index","Main")";
+                        } else {
+                            alert(data);
+                        }
+
+                    },
+                    error: function () {
+                        alert("系统繁忙，请联系管理员");
+                    }
+                });
+            });
+
+        });
+        $(document).keydown(function(event) {
+            if (event.keyCode == 13) {
+                $("#Login").trigger("click");
+            }
+        });
+
+    </script>
+</head>
+<body style="background-color: #FFFFFF; margin-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; overflow-x: hidden;">
+        <center>
+            <form id="form1" name="form1" method="post" action="" target="_blank">
+
+                <table style="width:1000px;height:92%;border:0px;" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="height:114px;" colspan="3">
+                            <iframe style="width: 997px" frameborder="0" scrolling="no" height="111" src="/index/Top2.html"></iframe>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="height:700px;width:143px" valign="top">
+                            <iframe frameborder="0" scrolling="no" src="/index/right.html" style="width: 152px; margin-right: 8px; height: 519px;"></iframe>
+
+                        </td>
+                        <td valign="top" style="width:688px;text-align:center">
+                            <table border="0" cellpadding="0" cellspacing="0" style="width: 682px; height: 459px;">
+                                <tr>
+                                    <td align="center"  style="padding-top:0px;">
+                                        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="667" height="80">
+                                            <param name="movie" value="/index/swf/zsk.swf" />
+                                            <param name="quality" value="high" />
+                                            <embed src="/index/swf/zsk.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="667" height="80" /></embed>
+                                        </object>
+                                    </td>
+                                </tr>
+
+                                <tr style="text-align:center;">
+                                    <td style="height:161px;width:680px;text-align:center">
+                                        <table style="width:100%;height:142px;border:0px;padding-top:10px" align="center" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="height:36px;" align="center">
+                                                    <label>
+                                                        <span class="STYLE66">用户名：</span>
+                                                        <input type="text" id="txtUserName" name="txtUserName" style="width:95px" />
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:36px;" align="center">
+                                                    <label>
+                                                        <span class="STYLE66">密<a style="padding-left: 1em"></a>码：</span>
+                                                        <input type="password" id="txtPassword" name="txtPassword" style="width:95px" />
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:36px;" align="center">
+                                                    <label>
+                                                        <span class="STYLE66"><a style="padding-left:4.5em"></a>验证码：</span>
+                                                        <input type="password" id="txtCode" name="txtCode" style="width:95px" /> 
+                                                        <img id="img" src="/Login/ShowValidateCode" style="cursor:pointer;vertical-align:bottom;height:22px;width:60px;" />
+                                                    </label>
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr style="padding-top:10px;">
+                                                <td height="36" valign="bottom" align="center">
+                                                    <a href="#" id="Login">
+                                                        <img src="/images/gif-0784 拷贝.jpg" style="border:none" />
+                                                    </a>
+
+                                                    <a style="padding-left:1em"></a>
+                                                    <a href="#">
+                                                        <img src="/images/gif-0895 拷贝.jpg" style="border:none" />
+                                                    </a>
+                                                    <a style="padding-left:1em"></a>
+                                                    <a href="#">
+                                                        <img src="/images/gif-0784 拷贝4.gif" id="ForgetPassword" style="border:none" />
+                                                    </a>
+                                                     
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center" valign="baseline" style="padding-top:100px">
+                                        <div id="bottominfo">
+                                            <table width="670" height="40" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td height="2" align="center"><hr style="width:660px;color:#bbb;" size="1" /></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td height="19" align="center"><span class="STYLE40">电话：<span class="STYLE36">0513-85051890</span> <a href="mailto:nthealth@126.com" style="color: #000080">邮箱：chinancd@163.com </a></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" valign="bottom"><p class="STYLE40">Copyright &copy; 2016-2017 <span class="STYLE27">www.chinaehr.org </span> <span class="STYLE40"><a href="http://icp.valu.cn/beianxinxi/28552c0a-5976-4e41-92c4-3a8f38460f02.html" target="_blank" style="color: #000080">苏ICP备11018114号</a></span>  </p></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="height:700px;" valign="top" class="auto-style3">
+                            <iframe style="width: 152px; margin-left: 8px; height: 519px;" frameborder="0" scrolling="no" src="/index/left2.html"></iframe>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <div>
+                </div>
+
+            </form>
+
+        </center>
+        <map name="Map">
+            <area shape="rect" coords="319,32,661,74" href="" />
+            <area shape="rect" coords="778,3,843,45" href="" />
+        </map>
+    </body>
+</html>

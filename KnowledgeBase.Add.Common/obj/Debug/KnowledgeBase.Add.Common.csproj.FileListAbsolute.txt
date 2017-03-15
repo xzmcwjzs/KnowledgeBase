@@ -1,0 +1,15 @@
+G:\知识数据库\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.dll
+G:\知识数据库\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.pdb
+G:\知识数据库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.dll
+G:\知识数据库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.pdb
+G:\知识数据库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.csprojResolveAssemblyReference.cache
+D:\王杰-锅只是个传说\知识库\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.dll
+D:\王杰-锅只是个传说\知识库\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.pdb
+D:\王杰-锅只是个传说\知识库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.dll
+D:\王杰-锅只是个传说\知识库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.pdb
+D:\王杰-锅只是个传说\知识库\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.csprojResolveAssemblyReference.cache
+D:\王杰-锅只是个传说\知识库系统\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.dll
+D:\王杰-锅只是个传说\知识库系统\KnowledgeBase.Add\KnowledgeBase.Add.Common\bin\Debug\KnowledgeBase.Add.Common.pdb
+D:\王杰-锅只是个传说\知识库系统\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.dll
+D:\王杰-锅只是个传说\知识库系统\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.pdb
+D:\王杰-锅只是个传说\知识库系统\KnowledgeBase.Add\KnowledgeBase.Add.Common\obj\Debug\KnowledgeBase.Add.Common.csprojResolveAssemblyReference.cache

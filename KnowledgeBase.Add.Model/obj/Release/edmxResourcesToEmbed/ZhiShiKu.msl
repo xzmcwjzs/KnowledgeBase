@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ZhiShiKuModelStoreContainer" CdmEntityContainer="ZhiShiKuEntities">
+    <EntitySetMapping Name="Dept">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.Dept">
+        <MappingFragment StoreEntitySet="Dept">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.Modules">
+        <MappingFragment StoreEntitySet="Modules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ModulesId" ColumnName="ModulesId" />
+          <ScalarProperty Name="ModulesName" ColumnName="ModulesName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Test">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.Test">
+        <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="Ueditor" ColumnName="Ueditor" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoSelect">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.UserInfoSelect">
+        <MappingFragment StoreEntitySet="UserInfoSelect">
+          <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BigCodeName">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.BigCodeName">
+        <MappingFragment StoreEntitySet="BigCodeName">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ParentCode" ColumnName="ParentCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiseaseCodeName">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.DiseaseCodeName">
+        <MappingFragment StoreEntitySet="DiseaseCodeName">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ParentCode" ColumnName="ParentCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SmallCodeName">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.SmallCodeName">
+        <MappingFragment StoreEntitySet="SmallCodeName">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ParentCode" ColumnName="ParentCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiseaseInfo">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.DiseaseInfo">
+        <MappingFragment StoreEntitySet="DiseaseInfo">
+          <ScalarProperty Name="JDStatus" ColumnName="JDStatus" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ShenHeId" ColumnName="ShenHeId" />
+          <ScalarProperty Name="JiaoDuiId" ColumnName="JiaoDuiId" />
+          <ScalarProperty Name="LuRuId" ColumnName="LuRuId" />
+          <ScalarProperty Name="ShenHe" ColumnName="ShenHe" />
+          <ScalarProperty Name="JiaoDui" ColumnName="JiaoDui" />
+          <ScalarProperty Name="LuRu" ColumnName="LuRu" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="YWSX" ColumnName="YWSX" />
+          <ScalarProperty Name="YWMC" ColumnName="YWMC" />
+          <ScalarProperty Name="Spell" ColumnName="Spell" />
+          <ScalarProperty Name="DiseaseName" ColumnName="DiseaseName" />
+          <ScalarProperty Name="DiseaseCode" ColumnName="DiseaseCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModulesContents">
+      <EntityTypeMapping TypeName="ZhiShiKuModel.ModulesContents">
+        <MappingFragment StoreEntitySet="ModulesContents">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModulesContent" ColumnName="ModulesContent" />
+          <ScalarProperty Name="ModulesName" ColumnName="ModulesName" />
+          <ScalarProperty Name="ModulesId" ColumnName="ModulesId" />
+          <ScalarProperty Name="DiseaseCode" ColumnName="DiseaseCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

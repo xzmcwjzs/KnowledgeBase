@@ -1,0 +1,389 @@
+﻿@using KnowledgeBase.Add.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>新增</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/MyAjaxForm.js"></script>
+    <script src="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.min.js"></script>
+    <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+    <script src="~/ueditor/ueditor.config.js"></script>
+    <script src="~/ueditor/ueditor.all.min.js"></script>
+    <script src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.css" rel="stylesheet" />
+    <style type="text/css">
+        .table th, .table td, div {
+            text-align: center;
+        }
+
+        div {
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        var ue = UE.getEditor('UEContent');
+
+        function AddDiseaseName(num) {
+            if ($("#DiseaseCode").val() == "") {
+                alert("请先填写疾病分类号");
+                return false;
+            }
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = ' <tr id="add' + addNum + '">' +
+'                    <td width="20%" style="text-align:right">' +
+'                        <span style="font-weight: bold; font-size: 13pt;">疾病名称' + addNum + '</span><span style="color:red">*</span>：' +
+'                    </td>' +
+'                    <td width="30%" style="text-align:left">' +
+'                        <input type="text" myattr="diseaseName" id="DiseaseName' + addNum + '" name="DiseaseName' + addNum + '" class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" onfocus="AddDiseaseName(' + addNum + ');"/>' +
+'                    </td>' +
+'                    <td width="20%" style="text-align:right">' +
+'                        <span style="font-weight: bold; font-size: 13pt;">疾病名称拼音首字母' + addNum + '</span><span style="color:red">*</span>：' +
+'                    </td>' +
+'                    <td width="30%" style="text-align:left">' +
+'                        <input type="text" myattr="spell" id="Spell' + addNum + '" name="Spell' + addNum + '" class="form-control1" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" />' +
+'                    </td>' +
+'                </tr>';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#DiseaseName" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("tr[id='add" + num + "']").after(strHtml);
+                $("#DiseaseName" + num).removeAttr("onfocus");
+
+            } else {
+                $("tr[id='add" + num + "']").after(strHtml);
+                $("#DiseaseName" + num).removeAttr("onfocus");
+            }
+        }
+
+        function AddQC(num) {
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = '<input type="text" myattr="ywmc" id="YWMC' + addNum + '" name="YWMC' + addNum + '" class="form-control" placeholder="请输入疾病英文全称' + addNum + '" style="width:150px;height:20px;" onfocus="AddQC(' + addNum + ');" />';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#YWMC" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("#addQC1").append(strHtml);
+                $("#YWMC" + num).removeAttr("onfocus");
+
+            } else {
+                $("#addQC1").append(strHtml);
+                $("#YWMC" + num).removeAttr("onfocus");
+            }
+        }
+
+        function AddSX(num) {
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = '<input type="text" myattr="ywsx" id="YWSX' + addNum + '" name="YWSX' + addNum + '" class="form-control" placeholder="请输入疾病英文缩写' + addNum + '" style="width:150px;height:20px;" onfocus="AddSX(' + addNum + ');" />';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#YWSX" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("#addSX1").append(strHtml);
+                $("#YWSX" + num).removeAttr("onfocus");
+
+            } else {
+                $("#addSX1").append(strHtml);
+                $("#YWSX" + num).removeAttr("onfocus");
+            }
+        }
+
+        function SaveOrUpdate() {
+
+            var ueContent = ue.getContent();
+            var diseaseNameList = ""; var spellList = ""; var ywmcList = ""; var ywsxList = "";
+            $("input[myattr='diseaseName']").each(function (i) {
+                if ($(this).val() != "") {
+                    diseaseNameList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='spell']").each(function (i) {
+                if ($(this).val() != "") {
+                    spellList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='ywmc']").each(function (i) {
+                if ($(this).val() != "") {
+                    ywmcList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='ywsx']").each(function (i) {
+                if ($(this).val() != "") {
+                    ywsxList += $(this).val() + "}";
+                }
+            });
+            if ($("#DiseaseCode").val() == "") { alert("疾病分类号不能为空"); return; }
+            if ($("#LuRu").val() == "") { alert("录入人不能为空"); return; }
+            if ($("#DiseaseName1").val() == "") { alert("疾病名称1不能为空"); return; }
+            if ($("#Spell1").val() == "") { alert("疾病名称拼音首字母1不能为空"); return; }
+            if ($("#YWMC1").val() == "") { alert("疾病英文全称不能为空"); return; }
+
+            if ($("#Modules").val() == null) {
+                alert("请在左侧选择该疾病的标题名称");
+                return;
+            }
+            if (ueContent == "") {
+                alert("该模块内容为空，无法进行提交");
+                return;
+            }
+            $.ajax({
+                cache: false,
+                asycn: true,
+                type: "post",
+                url: '@Url.Action("AddOrUpdate")',
+                dataType: "text",
+                data: {
+                    modulesId: $("#Modules").get(0).selectedIndex, modulesName: $("#Modules").find("option:selected").text(), diseaseCode: $("#DiseaseCode").val(), luRu: $("#LuRu").val(), luRuId: $("#LuRuId").val(), diseaseNameList: diseaseNameList,
+                    spellList: spellList, ywmcList: ywmcList, ywsxList: ywsxList, ueContent: ueContent
+                },
+                success: function (data) {
+                    var jsonArr = eval("(" + data + ")");
+                    if (jsonArr.status == "error") {
+                        alert(jsonArr.msg);
+                        return;
+                    } else {
+                        alert(jsonArr.msg);
+                        window.opener.parent.frames.bodyFrame.frames.frmright.window.loadPageList(1);
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+
+            });
+
+        }
+
+        function Clear() {
+            ue.setContent("");
+        }
+
+        function QueDing() {
+            var modulesTitle = $("#ModulesTitle").val();
+            if (modulesTitle == "") {
+                alert("疾病标题名称不能为空");
+                return false;
+            }
+            var strHtml = "<option>" + modulesTitle + "</option>";
+            $("#Modules").append(strHtml);
+            $('#myModal').modal('hide');
+        }
+        function YiChuC() {
+            if (null == $('#Modules').val()) {
+                alert('请选择一项');
+                return false;
+            }
+            $("#Modules").find("option:selected").remove();
+        }
+
+        function ShangYiC() {
+            if (null == $('#Modules').val()) {
+                alert('请选择一项');
+                return false;
+            }
+            //选中的索引,从0开始 
+            var optionIndex = $('#Modules').get(0).selectedIndex;
+            //如果选中的不在最上面,表示可以移动 
+            if (optionIndex > 0) {
+                $('#Modules option:selected').insertBefore($('#Modules option:selected').prev('option'));
+            }
+        }
+
+        function changeTitle() {
+            ue.setContent("");
+            //var mid = $("#Modules").get(0).selectedIndex;
+            //var mname = $("#Modules").find("option:selected").text(); 
+            //$("#ModulesId").val(mid);
+            //$("#ModulesName").val(mname);
+             
+        }
+    </script>
+
+</head>
+<body style="margin:0 auto">
+<form id="form1" name="form1">
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="margin: 0 auto;text-align: center"> 
+                    <table style="text-align: center;margin: 0 auto">
+                        <tr>
+                            <td>
+                                <h2>疾病标题名称</h2></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="ModulesTitle" name="ModulesTitle" style="width:250px"/></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="button" value="关闭" id="close" name="close" class="btn btn-default" data-dismiss="modal" />
+                                <input type="button" value="确定" id="confirm" name="confirm" class="btn btn-success" onclick="QueDing()" /> 
+                            </td>
+                        </tr>
+                    </table>
+                     
+                </div> 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div style="text-align: center; padding-top: 5px;"><span style="font-weight: bold; font-size: 18pt;">疾病内容录入</span></div>
+    <div class="form-group" style="text-align: center; width: 100%;">
+        <table style="text-align: center; width: 100%;" class="table table-condensed">
+            <tr>
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">疾病分类号</span><span style="color: red">*</span>：
+                </td>
+                <td width="30%" style="text-align: left">
+                    <input type="text" id="DiseaseCode" name="DiseaseCode" class="form-control" placeholder="请输入疾病分类号" style="width: 150px; height: 20px;"/>
+                </td>
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">录入人</span><span style="color: red">*</span>：
+                </td>
+                <td width="30%" style="text-align: left">
+                    <input type="text" id="LuRu" name="LuRu" value="@ViewBag.RealName" class="form-control" style="width: 80px; height: 20px;" readonly="readonly"/>
+                    <input type="hidden" id="LuRuId" name="LuRuId" value="@ViewBag.Name"/>
+                </td>
+            </tr>
+            <tr id="add1">
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">疾病名称1</span><span style="color: red">*</span>：
+                </td>
+                <td width="30%" style="text-align: left">
+                    <input type="text" myattr="diseaseName" id="DiseaseName1" name="DiseaseName1" class="form-control" placeholder="请输入疾病名称" style="width: 150px; height: 20px;" onfocus="AddDiseaseName(1);"/>
+                </td>
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">疾病名称拼音首字母1</span><span style="color: red">*</span>：
+                </td>
+                <td width="30%" style="text-align: left">
+                    <input type="text" myattr="spell" id="Spell1" name="Spell1" class="form-control1" placeholder="请输入疾病名称拼音首字母" style="width: 150px; height: 20px;"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">疾病英文全称</span><span style="color: red">*</span>：
+                </td>
+                <td width="80%" style="text-align: left" colspan="3" id="addQC1">
+                    <input type="text" myattr="ywmc" id="YWMC1" name="YWMC1" class="form-control" placeholder="请输入疾病英文全称1" style="width: 150px; height: 20px;" onfocus="AddQC(1);"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="20%" style="text-align: right">
+                    <span style="font-weight: bold; font-size: 13pt;">疾病英文缩写</span>：
+                </td>
+                <td width="80%" style="text-align: left" colspan="3" id="addSX1">
+                    <input type="text" myattr="ywsx" id="YWSX1" name="YWSX1" class="form-control" placeholder="请输入疾病英文缩写1" style="width: 150px; height: 20px;" onfocus="AddSX(1);"/>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div style="width: 100%; clear: both; overflow: hidden;">
+        <div style="float: left; width: 150px; margin-left: 20px;">
+            <div>
+                <select id="Modules" name="Modules" multiple="multiple" style="width: 140px; height: 350px" onchange="changeTitle()">
+                    @foreach (var m in (List<SelectListItem>) ViewBag.modulesList)
+                    {
+                        if (m.Value == "01")
+                        {
+                            <option value="@m.Value" selected="selected">@m.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@m.Value">@m.Text</option>
+                        }
+                        
+
+                    }
+                </select>
+                @*@Html.DropDownList("Modules", (List<SelectListItem>)ViewBag.modulesList)*@
+
+            </div>
+            <div style="padding-top: 10px;">
+                <input type="button" value="新增" style="width: 135px;" class="btn btn-success" id="XinZeng" name="XinZeng" data-toggle="modal" data-target="#myModal"/>
+            </div>
+            <div style="padding-top: 10px;">
+                <input type="button" value="移除" style="width: 135px;" class="btn btn-success" id="YiChu" name="YiChu" onclick="YiChuC()"/>
+            </div>
+            <div style="padding-top: 10px;">
+                <input type="button" value="上移" style="width: 135px;" class="btn btn-success" id="ShangYi" name="ShangYi" onclick="ShangYiC()"/>
+            </div>
+        </div>
+        <div id="myTabContent" style="width: 100%; margin-left: 180px">
+            <script id="UEContent" name="UEContent" type="text/plain" style="width: 90%; height: 400px;">
+             </script>
+            @*<input type="hidden" id="ModulesId" name="ModulesId" value="01"/>
+            <input type="hidden" id="ModulesName" name="ModulesName" value="定义"/>*@
+        </div>
+    </div>
+    <div>
+        <input type="button" value="提交" class="btn btn-success" id="TiJiao" name="TiJiao" onclick="SaveOrUpdate()"/>
+        <input type="button" value="重置" class="btn btn-default" id="ChongZhi" name="ChongZhi" onclick="Clear()"/>
+    </div>
+
+</form>
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                cache: false,
+                type: "get",
+                url: '@Url.Action("AutocompleteDiseaseCode")',
+                dataType: "text",
+                success: function (data) {
+                    jsonArr = eval("(" + data + ")");
+                    $("#DiseaseCode").autocomplete(jsonArr, {
+                        autoFill: false,
+                        matchContains: true,
+                        width: 300,
+                        max: 10,
+                        scrollHeight: 300,
+                        matchContains: true,
+                        matchSubset: true,
+                        matchCase: true,
+                        scroll: true,
+                        formatItem: function (row, i, max) {
+                            return "<span style='font-weight:bold;font-size:12pt;float:left'>" + row.Code + "</span><span style='font-weight:bold;font-size:12pt;float:right;color:green'>[" + row.Name + "]" + "</span>";
+                        },
+                        formatMatch: function (row, i, max) {
+                            return row.Code;
+                        },
+                        formatResult: function (row) {
+                            return row.Code;
+                        }
+                    }).result(function (event, row, formatted) {
+                        $("#DiseaseName1").val(row.Name);
+                        if ($("#DiseaseName2").length <= 0) {
+                            AddDiseaseName(1);
+                        }
+                    });
+
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

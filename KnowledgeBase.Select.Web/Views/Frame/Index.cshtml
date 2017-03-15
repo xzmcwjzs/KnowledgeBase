@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>疾病知识库搜索查询</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/jquery.jqprint-0.3.js"></script>
+    <script src="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.min.js"></script>
+    <link href="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.css" rel="stylesheet" />
+    <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+    <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Frame/Index.js"></script>
+    <script>
+        $(function () {
+            var isPrint = '@ViewBag.IsPrint';
+            if (isPrint == "0") {
+                $("#PrintDIV").hide();
+            }
+        })
+    </script>
+</head>
+<body style="text-align:center; background-color: #f5f5f5;">
+    <form class="form-horizontal" role="form">
+        <input type="hidden" id="DiseaseCode" name="DiseaseCode" value="" />
+        <div style="text-align:right">
+            <a style="color: #808080;text-decoration:none" href="#" onclick="Quit()">安全退出</a> 
+        </div>
+        <div style="margin:1px auto;width:300px;height:43px;background-color:white;border-radius:5px"> 
+            <img src="/index/images/biaotou40.png" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size:25pt;font-family:黑体;vertical-align:middle">内科疾病知识库</span>
+        </div>
+        <div class="form-group" style="margin: 0 auto; margin-top: 10px; width: 100%; height: 100%;">
+            <div style="width:80%;text-align:center;margin-left:10%;">
+                <div class="col-sm-10" style="width: 86%; background-color: #f5f5f5; padding: 10px; margin-left: 7%; ">
+                    <input type="text" value="" id="DiseaseList" name="DiseaseList" class="form-control" placeholder="请输入疾病名称（中文名称、拼音首字母、英文名称或英文缩写）" style="width: 70%; height: 25px; ">
+                    @*<input type="button" value="全选" id="CheckAll2" name="CheckAll2" class="btn btn-primary" style="width:50px;height:35px;" disabled="disabled"/>*@
+                    <input type="button" value="检索" id="ZKSearch" name="ZKSearch" class="btn btn-primary" style="width:90px;height:35px;" onclick="Search('cj')" />
+                    <input type="button" value="高级检索" id="ZKSearch1" name="ZKSearch1" class="btn btn-primary" style="width:90px;height:35px;" onclick="Search('gj')" />
+                     
+                </div>
+
+                <div id="Conditions" style="text-align: center; margin-top: 10px; width: 70%; margin-left: 15%;background-color: #ffffff">
+                    <table class="table table-condensed table-hover" id="ConditionsTable">
+                        
+                    </table>
+                </div>
+
+                <div id="ModulesContents" style="margin: 0 auto; margin-top: 20px; width: 86%; text-align: left; margin-left: 7%; display: block; padding: 10px;border-radius: 20px"></div>
+                <div id="FloatDIV" style="border-radius:5px; margin-top:400px; position: absolute;top: 0px; z-index:9999; background: #0065cc;cursor: pointer;color:white" onclick="window.scrollTo(0,0);">回到顶部</div>
+                <div id="PrintDIV" style="border-radius:5px; margin-top: 500px; position: absolute; top: 0px; z-index: 9999; background: #0065cc; cursor: pointer; color: white; " onclick="divPrint()">打印</div>
+                
+            </div>
+        </div>
+       
+    </form>
+   
+    <script type="text/javascript">
+        var MarginLeft = 5;    //浮动层离浏览器右侧的距离
+        var MarginTop = document.body.clientHeight - 80;   //浮动层离浏览器顶部的距离(浏览器高度-div高度)
+        var Width = 25;            //浮动层宽度
+        var Heigth = 80;           //浮动层高度
+
+        $("#FloatDIV").hide();
+        $("#PrintDIV").hide();
+
+        //设置浮动层宽、高
+        function Set() {
+            document.getElementById("FloatDIV").style.width = Width + 'px';
+            document.getElementById("FloatDIV").style.height = Heigth + 'px';
+            document.getElementById("PrintDIV").style.width = Width + 'px';
+            document.getElementById("PrintDIV").style.height = '40px';
+        }
+
+        //实时设置浮动层的位置
+        function Move() {
+            var b_top = window.pageYOffset
+                    || document.documentElement.scrollTop
+                    || document.body.scrollTop
+                    || 0;
+            var b_width = document.body.clientWidth;
+            document.getElementById("FloatDIV").style.top = b_top + MarginTop + 'px';
+            document.getElementById("FloatDIV").style.left = b_width - Width - MarginLeft + 'px';
+            document.getElementById("PrintDIV").style.top = b_top + MarginTop + 'px';
+            document.getElementById("PrintDIV").style.left = b_width - Width - MarginLeft + 'px';
+            setTimeout("Move();", 100);
+        }
+        Set();
+        Move();
+       
+        $(window).scroll(function () {
+            if ($(window).scrollTop()> 100) {
+                $("#FloatDIV").fadeIn(1000);//一秒渐入动画
+            } else {
+                $("#FloatDIV").fadeOut(1000);//一秒渐隐动画
+            }
+        }); 
+    </script>
+
+</body>
+</html>

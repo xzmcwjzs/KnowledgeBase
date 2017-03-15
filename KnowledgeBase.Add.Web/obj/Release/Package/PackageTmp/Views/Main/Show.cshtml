@@ -1,0 +1,130 @@
+﻿@using KnowledgeBase.Add.Model.ViewModel
+@using KnowledgeBase.Add.Common
+@model IQueryable<DiseaseContentsViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>查看</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/MyJs/jquery.jqprint-0.3.js"></script>
+    <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+       
+        div {
+            width: 100%;
+        }
+    </style>
+    <script>
+        function printC() {
+            $("#printContents").jqprint();
+        }
+        
+    </script>
+
+</head>
+<body>
+        @{
+            DiseaseContentsViewModel diseaseContentsViewModel = ViewData.Model.FirstOrDefault();
+            string DiseaseCode = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseCode);
+            string DiseaseName = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseName);
+            string Spell = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VSpell);
+            string YWMC = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWMC);
+            string YWSX = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWSX);
+            string CreateTime = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VCreateTime);
+            string LuRu = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VLuRu);
+            string JiaoDui = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJiaoDui);
+            string ShenHe = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VShenHe);
+            string Status = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VStatus);
+            string JDStatus = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJDStatus);
+        }
+        <div style="text-align:center;padding-top:5px;"><span style="font-weight:bold;font-size:18pt;">疾病内容查看</span>
+            <span style="font-size:10pt;color:#0088cc;cursor:pointer" id="print" onclick="printC()">(打印)</span></div>
+        <div class="form-group" style="text-align:center;width:100%;">
+            <table style="text-align:center;width:100%;" class="table table-striped">
+                <tr>
+                    <th width="20%" style="text-align:right">疾病分类号：</th>
+                    <td width="30%" style="text-align:left">@DiseaseCode</td>
+                    <th width="8%" style="text-align: right">录入人：</th>
+                    <td width="8%" style="text-align: left">@LuRu</td>
+                    
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align:right">
+                        疾病名称：
+                    </th>
+                    <td width="80%" style="text-align:left" colspan="7">
+                        @{
+                            string[] diseaseNameArr = DiseaseName.Split('}');
+                            string diseaseNameList = "";
+                            for (int i = 0; i < diseaseNameArr.Length; i++)
+                            {
+                                diseaseNameList += diseaseNameArr[i] + " ";
+                            }
+                            <span>@diseaseNameList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align: right">疾病名称拼音首字母：</th>
+                    <td width="80%" style="text-align: left" colspan="7">
+                        @{
+                            string[] spellArr = Spell.Split('}');
+                            string spellList = "";
+                            for (int i = 0; i < spellArr.Length; i++)
+                            {
+                                spellList += spellArr[i] + " ";
+                            }
+                            <span>@spellList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align: right">疾病英文全称：</th>
+                    <td width="80%" style="text-align: left" colspan="7">
+                        @{
+                            string[] ywmcArr = YWMC.Split('}');
+                            string ywmcList = "";
+                            for (int i = 0; i < ywmcArr.Length; i++)
+                            {
+                                ywmcList += ywmcArr[i] + " ";
+                            }
+                            <span>@ywmcList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align:right">疾病英文缩写：</th>
+                    <td width="80%" style="text-align:left" colspan="7">
+                        @{
+                            string[] ywsxArr = YWSX.Split('}');
+                            string ywsxList = "";
+                            for (int i = 0; i < ywsxArr.Length; i++)
+                            {
+                                ywsxList += ywsxArr[i] + " ";
+                            }
+                            <span>@ywsxList</span>
+                        }
+                    </td>
+                </tr>
+            </table>
+
+        </div> 
+   
+    <div style="display:block;background-color:#F5F5F5;width:80%;margin-left:10%" id="printContents">
+        @foreach (var item in ViewData.Model.OrderBy(u=>u.VModulesId))
+        {
+             <h2>·@item.VModulesName</h2>
+              
+            <P>@Html.Raw(item.VModulesContent)</P>  
+        }
+
+    </div>
+</body>
+</html>

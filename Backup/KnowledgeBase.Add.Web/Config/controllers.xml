@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+ 
+  <object type="KnowledgeBase.Add.Web.Controllers.TestController, KnowledgeBase.Add.Web" singleton="false" >
+    <property name="testService" ref="TestService" />
+  </object>
+  <object type="KnowledgeBase.Add.Web.Controllers.TestController, KnowledgeBase.Add.Web" singleton="false" >
+    <property name="userInfoService" ref="UserInfoService" />
+  </object>
+  <object type="KnowledgeBase.Add.Web.Controllers.LoginController, KnowledgeBase.Add.Web" singleton="false" >
+    <property name="userInfoService" ref="UserInfoService" />
+  </object>
+  <object type="KnowledgeBase.Add.Web.Controllers.FrameController, KnowledgeBase.Add.Web" singleton="false" >
+    <property name="userInfoService" ref="UserInfoService" />
+  </object>
+  <object type="KnowledgeBase.Add.Web.Controllers.FrameController, KnowledgeBase.Add.Web" singleton="false" >
+    <property name="diseaseInfoService" ref="DiseaseInfoService" />
+  </object>
+<object type="KnowledgeBase.Add.Web.Controllers.FrameController, KnowledgeBase.Add.Web" singleton="false" >
+  <property name="modulesContentsService" ref="ModulesContentsService" />
+</object>
+<!--<object type="KnowledgeBase.Add.Web.Controllers.FrameController, KnowledgeBase.Add.Web" singleton="false" >
+  <property name="diseaseCodeNameService" ref="DiseaseCodeNameService" />
+</object>-->
+
+
+
+
+
+</objects>

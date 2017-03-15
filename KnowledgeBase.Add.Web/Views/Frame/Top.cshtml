@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>头部</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/global.js"></script>
+    <link href="~/Content/MyCSS/global.css" rel="stylesheet" />
+    <style type="text/css">
+        .tbmover {
+            border: #336699 1px solid;
+            padding-right: 2px;
+            padding-left: 2px;
+            background-color: #eef2f8;
+            cursor: pointer;
+        }
+
+        .tbmout {
+            padding-right: 3px;
+            padding-left: 3px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function SwitchQryBar() {
+
+            if (document.getElementById("qryTitle").innerText == "打开查询") {
+                document.getElementById("qryTitle").innerText = "关闭查询";
+                document.getElementById("qryImg").src = "/images/imgs/arrow_left.gif";
+            } else {
+                document.getElementById("qryImg").src = "/images/imgs/arrow_right.gif";
+                document.getElementById("qryTitle").innerText = "打开查询";
+            }
+            window.parent.frames["bodyFrame"].window.SwitchQryBar();
+
+        }
+    </script>
+</head>
+<body>
+    <table border="0" cellpadding="0" cellspacing="0" class="toorbar2" style="margin:auto;width:99%;">
+        <tr>
+            @{
+                string remark = ViewBag.Remark;
+                if (remark.Contains("1"))
+                {
+                    <td style="width:2px;padding-left:5px">|</td>
+                    <td style="width: 90px; float: left" class='tbmout' onmouseover="this.className='tbmover'" onmouseout="this.className='tbmout'" onclick="OpenTopWindow('@Url.Action("Manage")',1200,660);">
+                        <img src="/images/imgs/icon_add.gif" alt="" height="16" align="absmiddle" />新增
+                    </td>
+                }
+            }
+
+            <td style="width: 2px; float: left">|</td>
+            <td style="width: 120px; float: left" class='tbmout' id='switchqrytd' title='打开查询页面' onmouseover="this.className='tbmover'" onmouseout="this.className='tbmout'" onclick="SwitchQryBar();">
+                <img src="/images/imgs/arrow_right.gif" alt="" height="11" align="middle" id="qryImg" />
+                <span id='qryTitle'>打开查询</span>
+            </td>
+            <td style="width: 2px; float: left">|</td>
+        </tr>
+    </table>
+</body>
+</html>

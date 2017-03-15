@@ -1,0 +1,63 @@
+﻿@using KnowledgeBase.Add.Model
+@model IQueryable<Test>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/ueditor/ueditor.config.js"></script>
+    <script src="~/ueditor/ueditor.all.min.js"></script>
+    <script src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+    </script>
+    <style type="text/css">
+        div {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <table style="border:1px solid">
+            @{
+
+                foreach (var item in ViewData.Model)
+                {
+                    <tr>
+                        <td width="10%" style="border:1px solid">@item.Id</td>
+                        <td width="10%" style="border:1px solid">@item.Name</td>
+                        <td width="10%" style="border:1px solid">@item.Password</td>
+                        <td width="10%" style="border:1px solid">@item.Type</td>
+                        <td width="50%" style="border:1px solid">@Html.Raw(item.Ueditor)</td>
+                        <td width="10%" style="border:1px solid">@ViewBag.test</td>
+                        @*<td width="10%" style="border:1px solid">@item.Name</td>
+                        <td width="10%" style="border:1px solid">@item.RealName</td>
+                        <td width="10%" style="border:1px solid">@item.Password</td>*@
+                    </tr>
+                }
+
+            }
+
+
+        </table>
+    </div>
+    @using (Html.BeginForm("Add", "Test", FormMethod.Post, new { id = "form1" }))
+    {
+        <div>
+            <h1>完整demo</h1>
+            <script id="editor" name="editor" type="text/plain" style="width:1024px;height:500px;">
+            </script>
+        </div>
+        <input type="submit" id="tijiao" name="tijiao" value="提交" />
+    }
+
+</body>
+</html>

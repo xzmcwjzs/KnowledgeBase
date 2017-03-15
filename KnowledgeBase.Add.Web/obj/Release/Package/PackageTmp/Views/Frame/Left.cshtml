@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>左侧页</title>
+    <script src="~/Scripts/MyJs/global.js"></script>
+    <link href="~/Content/MyCSS/global.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Ajax.BeginForm("LeftToList", "Frame", new AjaxOptions() { HttpMethod = "Post" }, new { id = "form1", target = "frmright" }))
+    {
+        <div>
+            <table cellpadding="1" cellspacing="1" class="qryTable">
+                <tr>
+                    <td style="height: 30px; color: Red; vertical-align: bottom">请输入检索条件：</td>
+                </tr>
+                <tr>
+                    <td>录入人：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="LuRu" name="LuRu" style="height:17px;width:150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病名称：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="DiseaseName" name="DiseaseName" style="height:17px;width:150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病名称拼音首字母：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="Spell" name="Spell" style="height:17px;width:150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病英文全称：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="YWMC" name="YWMC" style="height: 17px; width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病英文缩写：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="YWSX" name="YWSX" style="height: 17px; width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>校对状态：
+                        <select id="JDStatus" name="JDStatus" style="height: 17px; width: 88px;">
+                            <option value="">==请选择==</option>
+                            <option value="0">未校对</option>
+                            <option value="1">已校对</option>
+                        </select>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>审核状态：
+                        <select id="Status" name="Status" style="height: 17px; width: 88px;">
+                            <option value="">==请选择==</option>
+                            <option value="0">未审核</option>
+                            <option value="1">审核通过</option>
+                        </select>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        <div style="text-align:center;">
+                            <input type="submit" id="Submit1" name="Submit2" value="查询" style="width:50px;height:25px;" />
+                            <input type="button" name="Submit2" value="重置" class="button" onclick="form1.reset();" style="width:50px;height:25px;" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</body>
+</html>

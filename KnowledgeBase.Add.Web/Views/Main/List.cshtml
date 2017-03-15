@@ -1,0 +1,201 @@
+﻿@using KnowledgeBase.Add.Common
+@using KnowledgeBase.Add.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>列表页</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/global.js"></script>
+    <script src="~/Scripts/MyJs/MyPageList/PageList1.js"></script>
+    <script src="~/Scripts/MyJs/MyAjaxForm.js"></script>
+    <link href="~/Content/MyCSS/global.css" rel="stylesheet" />
+    <link href="~/Content/MyCSS/bootstrapNoTable/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var LuRu = '@CommonFunc.SafeGetStringFromObj(ViewData["LuRu"])';
+        var DiseaseName = '@CommonFunc.SafeGetStringFromObj(ViewData["DiseaseName"])';
+        var Spell = '@CommonFunc.SafeGetStringFromObj(ViewData["Spell"])';
+        var YWMC = '@CommonFunc.SafeGetStringFromObj(ViewData["YWMC"])';
+        var YWSX = '@CommonFunc.SafeGetStringFromObj(ViewData["YWSX"])';
+        var JDStatus = '@CommonFunc.SafeGetStringFromObj(ViewData["JDStatus"])';
+        var Status = '@CommonFunc.SafeGetStringFromObj(ViewData["Status"])';
+        $(window).load(function () {
+            loadPageList(1);
+        });
+
+        function loadPageList(pi) {
+            $.ajax({
+                cache: false,
+                asycn: true,
+                type: "post",
+                url: '@Url.Action("PageList")',
+                dataType: "text",
+                data: {
+                    "pi": pi, "LuRu": LuRu, "DiseaseName": DiseaseName, "YWMC": YWMC, "YWSX": YWSX,"JDStatus":JDStatus,"Status":Status
+                },
+                success: function (data) {
+                    var jsonArr = eval("(" + data + ")");
+                    if (jsonArr.data == null) {
+                        $("#tbList tr:gt(0)").remove();
+                    } else {
+                        createRows(jsonArr.data, pi, jsonArr.remark, jsonArr.realName, jsonArr.name);
+                    }
+                    createPageBar($("#PageList"), pi, jsonArr.totalCount, jsonArr.pageCount);
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+            });
+        }
+
+        function createRows(jsonArr, pi, remark, realName, name) {
+            var tbL = $("#tbList");
+            $("#tbList tr:gt(0)").remove();
+            for (i = 0; i < jsonArr.length; i++) {
+                var trHTML = "<tr class='listTableContentRow'>";
+                trHTML += "<td style='height:25px'>" + jsonArr[i].diseaseCode + "</td>";
+                var arrDiseaseName = jsonArr[i].diseaseName.split("}");
+                var diseaseNameList = "";
+                for (var j = 0; j < arrDiseaseName.length; j++) {
+                    diseaseNameList += arrDiseaseName[j] + " ";
+                }
+                trHTML += "<td>" + diseaseNameList + "</td>";
+
+                var arrywmc = jsonArr[i].ywmc.split("}");
+                var ywmcList = "";
+                for (var k = 0; k < arrywmc.length; k++) {
+                    ywmcList += arrywmc[k] + " ";
+                }
+                trHTML += "<td>" + ywmcList + "</td>"; 
+                trHTML += "<td>" + jsonArr[i].luRu + "</td>";
+                trHTML += "<td><a href='#' onclick=\"show('" + jsonArr[i].diseaseCode + "');\"><img alt='查看详细资料' src='/images/imgs/icon_show.gif'/></a></td>";
+                trHTML += "<td><a href='#' onclick=\"xiugai('" + jsonArr[i].status + "','" + jsonArr[i].diseaseCode + "','" + jsonArr[i].luRuId + "','" + realName + "','" + name + "','" + pi + "');\"><img alt='修改该记录' src='/images/imgs/icon_edit.gif'/></a></td>";
+                trHTML += "<td><a href='#' onclick=\"shanchu('" + pi + "','" + jsonArr[i].status + "','" + jsonArr[i].diseaseCode + "','" + jsonArr[i].luRuId + "','" + name + "');\"><img alt='删除该疾病' src='/images/imgs/icon_del.gif'/></a></td>";
+                //录入人自行提交审核
+                if (jsonArr[i].status == "0") {
+                    trHTML += "<td><a href='#' style='color: red; text-decoration: none;' onclick=\"LuRuSH('" + jsonArr[i].status + "','" + jsonArr[i].diseaseCode + "','" + pi + "');\">未通过</a></td>";
+                } else {
+                    trHTML += "<td><a href='#' style='color: black; text-decoration: none;' onclick=\"LuRuSH('" + jsonArr[i].status + "','" + jsonArr[i].diseaseCode + "','" + pi + "');\">已通过</a></td>";
+                }
+                if (jsonArr[i].status == "0") {
+                    trHTML += "<td style='color:red'>未审核</td>";
+                } else {
+                    trHTML += "<td>审核通过</td>";
+                }
+                trHTML += "</tr>";
+                tbL.append(trHTML);
+            }
+            MouseAnimate();
+        }
+
+        function LuRuSH(Status, DiseaseCode, pi) {
+            
+            $.ajax({
+                cache: false, 
+                type: "post",
+                url: '@Url.Action("Handle")',
+                dataType: "text",
+                data: {
+                    "pi": pi, "Status": Status,"DiseaseCode":DiseaseCode
+                },
+                success: function (data) {
+                    if (data == "ok") { 
+                        loadPageList(pi);
+                    } else {
+                        alert("审核结果提交失败");
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+            });
+        }
+        function show(DiseaseCode) {
+            OpenTopWindow("Show?diseaseCode=" + DiseaseCode, 1200, 660);
+        }
+        function xiugai(Status, DiseaseCode, LuRuId, RealName, Name, pi) {
+            if (Status == "1") {
+                alert("该疾病内容已审核通过，无法进行修改");
+            } else {
+                if (LuRuId == Name) {
+                    OpenTopWindow("XiuGai?diseaseCode=" + DiseaseCode + "&pi=" + pi, 1200, 660);
+                } else {
+                    alert("非本人录入的疾病内容无法进行修改");
+                    return;
+                }
+            }
+
+        }
+        
+        function shanchu(pi, Status, DiseaseCode, LuRuId, Name) {
+            if (Status == "1") {
+                alert("该疾病内容已审核通过，无法进行删除");
+                return false;
+            } else {
+                if (LuRuId == Name) {
+                    if (confirm("确定要删除该记录吗")) {
+                        $.ajax({
+                            cache: false,
+                            asycn: true,
+                            type: "post",
+                            url: '@Url.Action("Delete")',
+                            dataType: "text",
+                            data: {
+                                "pi": pi, diseaseCode: DiseaseCode
+                            },
+                            success: function (data) {
+                                if (data == "ok") {
+                                    alert("删除成功");
+                                    loadPageList(pi);
+                                } else {
+                                    alert("删除失败");
+                                }
+                            },
+                            error: function () {
+                                alert("系统繁忙，请联系管理员");
+                            }
+
+                        });
+
+                    }
+                } else {
+                    alert("非本人录入的疾病内容无法进行删除");
+                    return;
+                }
+               
+            }
+            
+        }
+    </script>
+</head>
+<body style="padding:0px;">
+    <table class="listTableHead" cellspacing="0" cellpadding="0" style="width: 100%">
+        <tr>
+            <td class="listTableHeadTR" style="height: 22px;" width="20%">
+                <img height="16" src="/images/imgs/Query.gif" width="16" style="vertical-align: middle" />疾病名称查询结果
+            </td>
+        </tr>
+    </table>
+    <div>
+        <table id="tbList" class="listTable" cellspacing="1" cellpadding="0" style="width:100%">
+            <tr id="tr0" class="listTableTitleRow">
+                <td style="width:12%">疾病分类号</td>
+                <td style="width:18%">疾病名称</td>
+                <td style="width:18%">疾病英文全称</td> 
+                <td style="width:8%">录入人</td>
+                <td style="width:5%">查看</td>
+                <td>修改</td>
+                <td>删除</td>
+                <td>操作</td>
+                <td>审核状态</td>
+            </tr>
+        </table>
+        <div id="PageList" style="text-align:center; margin-top:10px;"></div>
+    </div>
+</body>
+</html>

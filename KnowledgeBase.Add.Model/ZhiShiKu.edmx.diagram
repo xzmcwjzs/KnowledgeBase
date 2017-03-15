@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="39abef614d9d4f8a8b00d007c148d2e3" Name="Diagram1">
+        <EntityTypeShape EntityType="ZhiShiKuModel.Dept" Width="1.5" PointX="9" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.Modules" Width="1.5" PointX="9" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.UserInfo" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.Test" Width="1.5" PointX="4.125" PointY="1.375" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.UserInfoSelect" Width="1.5" PointX="5.75" PointY="1.5" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.BigCodeName" Width="1.5" PointX="2.5" PointY="3.75" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.DiseaseCodeName" Width="1.5" PointX="4.125" PointY="3.5" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.SmallCodeName" Width="1.5" PointX="5.75" PointY="3.625" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.DiseaseInfo" Width="1.5" PointX="0.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZhiShiKuModel.ModulesContents" Width="1.5" PointX="2.625" PointY="5.875" />
+        <AssociationConnector Association="ZhiShiKuModel.FK_ModulesContents_DiseaseInfo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

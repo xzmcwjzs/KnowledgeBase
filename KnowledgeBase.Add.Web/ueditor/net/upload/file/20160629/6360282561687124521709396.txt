@@ -1,0 +1,268 @@
+(1)
+//根据不同的浏览器使用相应的方式来创建异步对象
+function createXmlHttp() {         
+    xhobj = false;
+    try {
+        xhobj = new ActiveXObject("Msxml2.XMLHTTP");//iemsxml3.0+，高版本ie浏览器,受msxml3.dll+支持   
+    }
+    catch (e) {
+        try {
+            xhobj = new ActiveXObject("Microsoft.XMLHTTP");//iemsxml2.6，低版本ie浏览器,一般是msxml2.6以下版本使用
+
+
+        } catch (e2) {
+            xhobj = false;
+        }
+    }
+    if (!xhobj && typeof XMLHttpRequest != 'undefined') {    //Firefox,Opera 8.0+,Safari,谷歌浏览器等等
+       xhobj = new XMLHttpRequest();
+    }
+    return xhobj;
+}
+(2)
+//js中创建异步对象，以及浏览器响应过程分析
+<script type="text/javascript">
+        var xhr = false;
+        function GetData() {
+            xhr = createXmlHttp();//创建异步对象
+            xhr.open("GET", "请求的url（在服务器端进行处理的页面）", true);//设置请求参数，此处为get方法，则send方法应设为null，若需传大量参数并且不使用缓存时，涉及用户输入传参时，post更可靠
+            xhr.setRequestHeader("If-Modified-Since","0");//在get方法下用来设置浏览器不使用缓存
+            //回调函数主要用来检测 服务器是否将数据发送给异步对象
+            xhr.onreadystatechange = function () {//设置回调函数（用来检查服务器是否响应）
+                if (xhr.readyState == 4) {//当服务器已经将数据发回浏览器了，其中0表示请求未初始化，1表示服务器连接已建立，2表示请求已接收，3表示请求处理中，4表示请求已完成，且响应已就绪
+                   if (xhr.status == 200) {//如果返回的响应报文的状态码为200时，才代表服务器运行正确，404表示页面未找到
+                        xhr.responseText//获得服务器响应的数据
+						。。。。。。。。//对服务器端响应的数据的处理
+                    } 
+                }
+             }
+            xhr.send(null);//异步对象发送请求
+       }
+(3)
+//Ajax使用post方式不同之处
+        //1.设置参数
+           xhr.open("post", "FirstAjaxForFun.ashx", true);
+        //2.设置post的请求报文数据格式
+          xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        //3.发送，传参
+          xhr.send("txtName=wangjie&txtPwd=123456");
+
+
+http://222.192.61.40:8080/oviyam/FullResolution.jsp?imageURL=http://222.192.61.40:8080/oviyam/Image.do?study=2.16.124.113543.6021.1.1.697369234.6428.1356082115.1  &series=2.16.124.113543.6021.1.2.697369234.6428.1356082115.3&object=2.16.124.113543.6021.1.3.697369234.6428.1356082235.4&rows=584
+
+http://cl.1024ab.tk/index.php
+http://www.web-starlets.com/category/x-art/
+http://league-of-hentai.com/category/Miss-Fortune/
+www.S-Cute.com
+最出色的的将军来自于战场上枪林弹雨的磨砺!而不是那些只会纸上谈兵的人！
+ <form action='Hello1.ashx'>
+
+        姓名：<input type='text' name='UserName'/><input type='submit' value='提交' />
+
+    </form>
+
+来自英语老师袁老师的通知，英语课外阅读作业:百度微盘，用户名：joyenglishclub密码已改为123456nt，阅读作业尚未放入，明天可登录查收。
+短信问的，可以参考
+
+mstsc 远程桌面
+mspaint 画板
+gpedit.msc，打开注册表编辑器
+msnote 记事本
+gpupdate /force （强制刷新策略，让刚刚的设置生效）
+
+远程登录 用户名：wangjie 密码:xzmcwjzs
+
+服务器端用户名：wj 密码：Ww85945845
+连接IP:222.192.61.8:1688   用户名：ls   密码：LouShuai307316
+222.192.61.10:1688  用户名：wj密码：Wangj123456
+
+<%内联代码%>也就是说里面可以写.cs里面那样的代码
+<%=sum%>这里的sum是.cs中得一个变量，也可以是一个函数（带返回值的），总的来说就是说<%=%>里面可以放一个值
+<%#Eval("字段")%>是用来绑定数据库的
+
+102875211604083
+102875211604083 考生编号
+
+参考文献格式：
+[1] 国家卫生计生委等七部委 . 国家卫生计生委等 7 部门关于建立住院医师规范化培训制度的指导意见 [EB/OL].（2013-12-31）.http://www.nhfpc.gov.cn/qjjys/s3593/201401/032c8cdf2eb64a369cc
+a4f9b76e8b059.shtml
+[2] 国家卫生计生委等7部门关于建立住院医师规范化培训制度的指导意见。(国卫科教发[2013]56号)。
+
+<!DOCTYPE html>含义：html5标准网页声明，原先的是一串很长的字符串，现在是这个简洁形式，支持html5标准的主流浏览器都认识这个声明。表示网页采用html5
+
+LoadModule php5 module "C:/MyPHP/php-5.6.14/php5apache2_4.dll"
+PHPIniDir "C:/MyPHP/php-5.6.14"
+AddType application/x-httpd-php .php .phtml
+
+58.193.166.177
+255.255.255.128
+58.193.166.129
+101.226.4.6
+114.114.114.114
+
+request[id] 全局变量，page_load中
+慎用return;
+
+http://222.192.61.40:8080/wado?requestType=WADO&studyUID=2.16.124.113543.6021.1.1.3953276494.8844.1352710107.1&seriesUID=2.16.124.113543.6021.1.2.3953276494.8844.1352710107.3&objectUID=2.16.124.113543.6021.1.3.3953276494.8844.1352710232.4
+
+
+request.querystring是用来接收地址里面问号“？”后面的参数的内容，  用get方法读取的 不安全 
+request.form是用来接收表单递交来的数据 ，是用post方法读取的form表单中的method中看你是get还是post ，一般form中都用post。
+
+Request：包含以上两种方式(优先获取GET方式提交的数据)，它会在QueryString、Form、ServerVariable中都按先后顺序搜寻一遍。
+       而且有时候也会得到不同的结果。如果你仅仅是需要Form中的一个数据，但是你使用了Request而不是Request.Form，那么程序将在QueryString、ServerVariable中也搜寻一遍。如果正好你的QueryString或者ServerVariable里面也有同名的项，你得到的就不是你原本想要的值了。
+
+Request.Params是所有post和get传过来的值的集合，request.params其实是一个集合，它依次包括request.QueryString、request.Form、request.cookies和request.ServerVariable。
+
+get方法把参数及参数值暴露给访客，所以是不安全的。而且url传送的参数长度有限，但便捷。
+post方法传送的参数长度可以很大，而且参数及参数值不被访客所看到。
+
+15160013     053211
+15160089     w5945845
+15160084     dzs12345
+ 
+<frame src="Top.html" id="topFrame" name="topFrame" scrolling="no" noresize=noresize> //默认地，可以通过拖动框架之间的“墙壁”来改变框架的大小，该属性可以锁定框架的大小。
+
+少玩游戏
+
+
+现在，用户对能看到直观形象的图表的要求是越来越高了，这对于ASP.NET开发者来说，需要一款很好的图表展示工具。而FusionCharts则是目前一款十分优秀的图表展示工具，它能用很少的代码量完成很好的效果，而且很容易跟各类语言整合。在本文中，将一步步指导读者如何使用Fusion Charts及asp.net去开发图表应用，其中给出了三种结合使用的场景，其中第一种情景是使用XML文件作数据源，第二种是使用用户输入数据的方式，第三种方式是使用连接ACCESS数据库读取图表所需的数据。
+
+1. 它无需安装，只需引入所需的 *.swf 文件，js文件和官方写好的几个公共方法的文件就可以了，使用方便。
+
+2. 它是免费的。
+
+王杰  留校 妈妈手机号码：15851176997 地址：泗阳县王集镇 留校原因：导师要求 所在宿舍：1402  
+
+var dataXml = "<chart caption='Indian Premier League Points' xAxisName='满意度' yAxisName='比例'showValues='0' formatNumberScale='0' showBorder='0'><set label='Mumbai Indians' value='16' /><set label='Chennai Super Kings' value='14' /><set label='Kolkata Riders' value='12' /></chart>";
+
+SessionID是要写入cookie的，既然是同一个浏览器，则只能保存一个SessionID，就是你最后一次登录产生的那个SessionID
+
+
+1627050863@qq.com
+
+1627050863@qq.com
+
+wyp5284015
+
+wyp813461
+
+doubble百度账号：
+账号: atuocv031
+密码:yangaiyin1314
+
+asp.net中，编辑信息时，为什么获取不到文本框更改后的值
+你看你没有在page_load中加ispostback判断 就在page_load中给文本框赋值了
+
+<img src="" />
+这时就相当于有了一个默认值为 "./", 也就是对当前目录下默认文档的请求。
+
+纪韩丹 
+15160085 068398
+洪洋
+15190011 030348
+季妈
+15160019
+  
+130516
+
+word中常用字符：±  (0-8)×10^6/L
+CommonFunc.SafeGetStringFromObj()好东西
+
+
+RotaryDept.SelectedValue
+RotaryDept.SelectedItem.Value（会有重复）  区别
+
+不建议使用tyr-catch
+self.opener.parent.frames.bodyFrame.frames.frmright.window.loadPageList(1);Html中
+
+Dom 处理标记语言的一组规范  我们使用的是 用dom方式在javascript中处理html    将每一个标签当做dom对象处理   js对dom进行操作包括两方面  Bom 和htmldom
+
+ajax嵌套时注意同步异步的问题  async:false  同步设置 只有xxx执行结束后，才可以执行其它操作
+
+浏览器内核不同  是指就是同样是实现dom中的方法，可能方法体的实现可能不同
+
+无名:
+报修电话，大家记一下吧，以后可能用到
+无名:
+85012580
+无名:
+85012277
+
+固定ip地址：58.193.166.174
+
+海安居民健康档案系统：网址 58.221.181.133:8088  管理员账号：ntdxcwdel密码：haianjk321
+
+goggle邮箱：xzmcwjzs@gmail.com 密码：w85945845
+
+
+MVC EF的CRUD操作：
+（1）删除操作
+public ActionResult Del(int id)
+        {
+            try
+            {
+                //1、创建要删除的对象
+                BlogArticle modelDel = new BlogArticle() { AId = id };
+                //2、将对象添加到EF管理容器中
+                db.BlogArticles.Attach(modelDel);
+                //3、将对象包装类的状态标识为删除状态
+                db.BlogArticles.Remove(modelDel);
+                //4、更新到数据库
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");//重新定向到HomeController的Index()方法，就是重新加载一下数据
+            }
+            catch (Exception ex)
+            {
+
+                return Content("删除失败！！！" + ex.Message);
+            }
+        }
+
+（2）修改操作
+ public ActionResult Modify(BlogArticle model)
+        {
+            try
+            {
+                //1、将实体对象加入EF对象容器中，并获取伪包装类对象
+                DbEntityEntry<BlogArticle> entry = db.Entry<BlogArticle>(model);
+                //2、将包装类对象的状态设置为 unchanged
+                entry.State = System.Data.EntityState.Unchanged;
+                //3、设置被修改的属性
+                entry.Property(a => a.ATitle).IsModified = true;
+                entry.Property(a => a.AContent).IsModified = true;
+                entry.Property(a => a.ACate).IsModified = true;
+                //4、提交到数据，完成修改
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+
+                return Content("修改失败！！！" + ex.Message);
+            }
+        } 
+
+华为账号密码：xzmcwjzs  w85945845*
+
+webservice作用：
+部署在不同机器上的  不同应用程序、平台之间数据的交互、通信。数据格式的描述用XML描述交换的数据。用于分布式应用。底层走的还是socket。
+
+WSDL:web服务的描述语言，服务说明。有多少个方法，方法返回类型、参数类型、参数个数等等。
+SOAP:简单对象访问协议。两个版本 头  体  基于http协议。描述websrvice传输数据时必须按照soap协议数据传输。
+
+web api：更专注于互联网间通信  基于http协议的
+
+反射：给你一个程序集dll文件，你要获得其中的元数据，哪些成员、哪些类，这过程就叫反射。智能提示用到的功能功能就是反射
+
+iframe：
+调用子窗体中的方法：
+var childWindow=$("#iframeId")[0].contentWindow;
+childWindow.子窗体方法
+
+子窗体调父窗体方法：window.parent.父窗体体方法
+
+
+读写数据：
+File(小文件 可读可写)  FileStream(大文件 using括起来  可读可写)  StreamReader(简单一个读取 可读 using)  SreamWriter(可写 using)
+

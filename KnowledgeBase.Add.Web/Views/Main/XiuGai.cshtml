@@ -1,0 +1,420 @@
+﻿@using KnowledgeBase.Add.Model.ViewModel
+@using KnowledgeBase.Add.Common
+@model IQueryable<DiseaseContentsViewModel>
+@{
+    Layout = null;
+}
+
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>修改</title>
+        <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+        <script src="~/Scripts/MyJs/MyAjaxForm.js"></script>
+        <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+        <script src="~/ueditor/ueditor.config.js"></script>
+        <script src="~/ueditor/ueditor.all.min.js"></script>
+        <script src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+        <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+        <style type="text/css">
+            .table th, .table td, div {
+                text-align: center;
+            }
+
+            div {
+                width: 100%;
+            }
+        </style>
+        <script type="text/javascript">
+            var pi = '@ViewBag.pi';
+            var ue = UE.getEditor('UEContent');
+
+            function AddDiseaseName(num) {
+                var plusNum = num - 1;
+                var addNum = num + 1;
+                var strHtml1 = '<input type="text" id=' + addNum + ' name=' + addNum + ' myattr="diseaseName" class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" onfocus="AddDiseaseName(' + addNum + ');" />';;
+                var strHtml2 = '<input type="text" id=' + addNum + ' name=' + addNum + ' myattr="spell" class="form-control" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" onfocus="AddSpell(' + addNum + ');" />';
+                if (plusNum >= 1) {
+                    for (i = plusNum; i >= 1; i--) {
+                        if ($("input[myattr=diseaseName][id="+i+"]").val() == "") {
+                            return false;
+                        }
+                    }
+                    $("#addDiseaseName").append(strHtml1);
+                    $("#addSpell").append(strHtml2);
+                    $("input[myattr=diseaseName][id="+num+"]").removeAttr("onfocus");
+
+                } else {
+                    $("#addDiseaseName").append(strHtml1);
+                    $("#addSpell").append(strHtml2);
+                    $("input[myattr=diseaseName][id=" + num + "]").removeAttr("onfocus");
+                }
+            }
+
+            function AddYWMC(num) {
+                var plusNum = num - 1;
+                var addNum = num + 1;
+                var strHtml = '<input type="text" id=' + addNum + ' name=' + addNum + ' myattr="ywmc"  class="form-control" placeholder="请输入疾病英文全称" style="width:150px;height:20px;" onfocus="AddYWMC(' + addNum + ');" />';
+                if (plusNum >= 1) {
+                    for (i = plusNum; i >= 1; i--) {
+                        if ($("input[myattr=ywmc][id=" + i+ "]").val() == "") {
+                            return false;
+                        }
+                    }
+                    $("#addYWMC").append(strHtml);
+                    $("input[myattr=ywmc][id=" + num+ "]").removeAttr("onfocus");
+
+                } else {
+                    $("#addYWMC").append(strHtml);
+                    $("input[myattr=ywmc][id=" + num + "]").removeAttr("onfocus");
+                }
+            }
+
+            function AddYWSX(num) {
+                var plusNum = num - 1;
+                var addNum = num + 1;
+                var strHtml = '<input type="text" id=' + addNum + ' name=' + addNum + ' myattr="ywsx"  class="form-control" placeholder="请输入疾病英文缩写" style="width:150px;height:20px;" onfocus="AddYWSX(' + addNum + ');" />';
+                if (plusNum >= 1) {
+                    for (i = plusNum; i >= 1; i--) {
+                        if ($("input[myattr=ywsx][id=" + i + "]").val() == "") {
+                            return false;
+                        }
+                    }
+                    $("#addYWSX").append(strHtml);
+                    $("input[myattr=ywsx][id=" + num + "]").removeAttr("onfocus");
+
+                } else {
+                    $("#addYWSX").append(strHtml);
+                    $("input[myattr=ywsx][id=" + num + "]").removeAttr("onfocus");
+                }
+            }
+
+            function Update() {
+                var ueContent = ue.getContent();
+                var Id, ModulesId, ModulesName;
+                var diseaseNameList = ""; var spellList = ""; var ywmcList = ""; var ywsxList = "";
+                $("input[myattr='diseaseName']").each(function (i) {
+                    if ($(this).val() != "") {
+                        diseaseNameList += $(this).val() + "}";
+                    }
+                });
+                $("input[myattr='spell']").each(function (i) {
+                    if ($(this).val() != "") {
+                        spellList += $(this).val() + "}";
+                    }
+                });
+                $("input[myattr='ywmc']").each(function (i) {
+                    if ($(this).val() != "") {
+                        ywmcList += $(this).val() + "}";
+                    }
+                });
+                $("input[myattr='ywsx']").each(function (i) {
+                    if ($(this).val() != "") {
+                        ywsxList += $(this).val() + "}";
+                    }
+                });
+                if ($("input[myattr=diseaseName][id=1]").val() == "") { alert("疾病名称不能为空"); return; }
+                if ($("input[myattr=spell][id=1]").val() == "") { alert("疾病名称拼音首字母不能为空"); return; }
+                if ($("input[myattr=ywmc][id=1]").val() == "") { alert("疾病英文全称不能为空"); return; }
+                if (ueContent == "") {
+                    alert("该模块内容为空，无法进行提交");
+                    return;
+                }
+                if ($("#Id").val() == "") {
+                    Id = "@Guid.NewGuid().ToString()";
+                    var min = parseFloat($('#Modules option:selected').prev('option').val());
+                    var max,num;
+                    if (isNaN($('#Modules option:selected').next('option').val())) {
+                        max = min + 1;
+                        num = (Math.random().toFixed(3) * (max - min)) + min;
+                    } else {
+                        max = parseFloat($('#Modules option:selected').next('option').val());
+                        num = (Math.random().toFixed(3) * (max - min)) + min;
+                    }
+                    
+                    ModulesId = num;
+                    //alert(min); alert(max); alert(ModulesId);
+                    ModulesName = $('#Modules option:selected').text();
+                } else {
+                   Id= $("#Id").val();
+                   ModulesId = $("#ModulesId").val();
+                   ModulesName = $("#ModulesName").val();
+                }
+                $.ajax({
+                    cache: false,
+                    asycn: true,
+                    type: "post",
+                    url: '@Url.Action("Update")',
+                    dataType: "text",
+                    data: {
+                        diseaseCode: $("#DiseaseCode").val(), diseaseNameList: diseaseNameList, spellList: spellList,
+                        ywmcList: ywmcList, ywsxList: ywsxList,
+                        id: Id, modulesId: ModulesId, modulesName: ModulesName, ueContent: ueContent
+                    },
+                    success: function (data) {
+                        var jsonArr = eval("(" + data + ")");
+                        if (jsonArr.status == "error") {
+                            alert(jsonArr.msg);
+                            return;
+                        } else {
+                            alert(jsonArr.msg);
+                            window.opener.window.loadPageList(pi);
+                            //window.opener.parent.frames.bodyFrame.frames.frmright.window.loadPageList(pi);
+                        }
+                    },
+                    error: function () {
+                        alert("系统繁忙，请联系管理员");
+                    }
+
+                });
+
+            }
+
+            function Clear() {
+                ue.setContent("");
+            }
+
+            function QueDing() {
+                var modulesTitle = $("#ModulesTitle").val();
+                if (modulesTitle == "") {
+                    alert("疾病标题名称不能为空");
+                    return false;
+                }
+                var strHtml = "<option>" + modulesTitle + "</option>";
+                $("#Modules").append(strHtml);
+                $('#myModal').modal('hide');
+            } 
+            function ShangYiC() {
+                if (null == $('#Modules').val()) {
+                    alert('请选择一项');
+                    return false;
+                }
+                if ($('#Modules').val() == $('#Modules option:selected').text()) {
+                    //选中的索引,从0开始 
+                    var optionIndex = $('#Modules').get(0).selectedIndex;
+                    //如果选中的不在最上面,表示可以移动 
+                    if (optionIndex > 0) {
+                        if ($('#Modules').get(0).selectedIndex != 1) {
+                            $('#Modules option:selected').insertBefore($('#Modules option:selected').prev('option'));
+                        }
+
+                    }
+                } else {
+                    alert('非新增标题不可移动');
+                    return false;
+                }
+               
+            }
+
+            function YiChuC() {
+                if (null == $('#Modules').val()) {
+                    alert('请选择一项');
+                    return false;
+                }
+                if ($('#Modules').val() == $('#Modules option:selected').text()) {
+                    $("#Modules").find("option:selected").remove();
+                } else {
+                    alert('非新增标题不可移除');
+                    return false;
+                }
+                
+            }
+
+            $(function () {
+                $("#Modules").get(0).selectedIndex = 0;
+                
+            });
+            function changeTitle() { 
+                $.ajax({
+                    cache: false,
+                    type: "get",
+                    url: '@Url.Action("ChangeUE")',
+                    dataType: "text",
+                    data: {
+                        diseaseCode: $("#DiseaseCode").val(), modulesId: $("#Modules option:selected").val()
+                    },
+                    success: function (data) { 
+                        var jsonArr = eval("(" + data + ")"); 
+                        if (jsonArr != "") {
+                            ue.setContent(jsonArr[0].ModulesContent);
+                            $("#Id").val(jsonArr[0].Id);
+                            $("#ModulesId").val(jsonArr[0].ModulesId);
+                            $("#ModulesName").val(jsonArr[0].ModulesName);
+                        }else {
+                            ue.setContent("");
+                            $("#Id").val("");
+                            $("#ModulesId").val("");
+                            $("#ModulesName").val(""); 
+                            //alert($('#Modules option:selected').prev('option').val()+"1"); 
+                        }
+                        
+                    },
+                    error: function () {
+                        alert("系统繁忙，请联系管理员");
+                    }
+
+                });
+                 
+            }
+        </script>
+
+    </head>
+    <body style="margin:0 auto">
+        @{
+        DiseaseContentsViewModel diseaseContentsViewModel = ViewData.Model.FirstOrDefault();
+        string DiseaseCode = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseCode);
+        string DiseaseName = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseName);
+        string Spell = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VSpell);
+        string YWMC = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWMC);
+        string YWSX = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWSX);
+        string CreateTime = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VCreateTime);
+        string LuRu = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VLuRu);
+        string JiaoDui = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJiaoDui);
+        string ShenHe = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VShenHe);
+        string Status = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VStatus);
+        string JDStatus = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJDStatus);
+        }
+        <form id="form1" name="form1">
+            <input type="hidden" id="Id" name="Id" value="@Model.OrderBy(u => u.VModulesId).FirstOrDefault().VId"/>
+            <input type="hidden" id="ModulesId" name="ModulesId" value="@Model.OrderBy(u => u.VModulesId).FirstOrDefault().VModulesId" />
+            <input type="hidden" id="ModulesName" name="ModulesName" value="@Model.OrderBy(u => u.VModulesId).FirstOrDefault().VModulesName" />
+
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body" style="margin: 0 auto;text-align: center">
+                            <table style="text-align: center;margin: 0 auto">
+                                <tr>
+                                    <td>
+                                        <h2>疾病标题名称</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="ModulesTitle" name="ModulesTitle" style="width:250px" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="关闭" id="close" name="close" class="btn btn-default" data-dismiss="modal" />
+                                        <input type="button" value="确定" id="confirm" name="confirm" class="btn btn-success" onclick="QueDing()" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <div style="text-align:center;padding-top:5px;"><span style="font-weight:bold;font-size:18pt;">疾病内容修改</span></div>
+            <div class="form-group" style="text-align:center;width:100%;">
+                <table style="text-align:center;width:100%;" class="table table-condensed">
+                    <tr>
+                        <th width="20%" style="text-align:right">疾病分类号<span style="color:red">*</span>：</th>
+                        <td width="30%" style="text-align:left">
+                            <input type="text" id="DiseaseCode" name="DiseaseCode" class="form-control" placeholder="请输入疾病分类号" style="width:150px;height:20px;" readonly="readonly" value="@DiseaseCode" />
+                        </td>
+                        <th width="8%" style="text-align: right">录入人：</th>
+                        <td width="8%" style="text-align: left">@LuRu</td>
+                        
+                    </tr>
+                    <tr>
+                        <th width="20%" style="text-align:right">
+                            疾病名称<span style="color:red">*</span>：
+                        </th>
+                        <td width="80%" style="text-align:left" colspan="7" id="addDiseaseName">
+                            @{
+                            string[] diseaseNameArr = DiseaseName.Split('}');
+                            int i;
+                            for (i = 0; i < diseaseNameArr.Length - 1; i++)
+                            {
+                            <input type="text" value="@diseaseNameArr[i]" id="@(i+1)" name="@(i + 1)" myattr="diseaseName" class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" />
+                            }
+                            <input type="text" myattr="diseaseName" id="@(i+1)" name="@(i + 1) " class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" onfocus="AddDiseaseName(@(i+1));" />
+                            }
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%" style="text-align: right">疾病名称拼音首字母<span style="color:red">*</span>：</th>
+                        <td width="80%" style="text-align: left" colspan="7" id="addSpell">
+                            @{
+                            string[] spellArr = Spell.Split('}');
+                            int j;
+                            for (j = 0; j < spellArr.Length - 1; j++)
+                            {
+                            <input type="text" value="@spellArr[j]" id="@(j+1)" name="@(j + 1) " myattr="spell" class="form-control" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" />
+                            }
+                            <input type="text" myattr="spell" id="@(j+1)" name="@(j + 1) " class="form-control" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" onfocus="AddSpell(@(j+1));" />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%" style="text-align: right">疾病英文全称<span style="color:red">*</span>：</th>
+                        <td width="80%" style="text-align: left" colspan="7" id="addYWMC">
+                            @{
+                            string[] ywmcArr = YWMC.Split('}');
+                            int k;
+                            for (k = 0; k < ywmcArr.Length - 1; k++)
+                            {
+                            <input type="text" value="@ywmcArr[k]" id="@(k+1)" name="@(k + 1) " myattr="ywmc" class="form-control" placeholder="请输入疾病英文全称" style="width:150px;height:20px;" />
+                            }
+                            <input type="text" myattr="ywmc" id="@(k+1)" name="@(k + 1) " class="form-control" placeholder="请输入疾病英文全称" style="width:150px;height:20px;" onfocus="AddYWMC(@(k+1));" />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%" style="text-align:right">疾病英文缩写：</th>
+                        <td width="80%" style="text-align:left" colspan="7" id="addYWSX">
+                            @{
+                            string[] ywsxArr = YWSX.Split('}');
+                            int h;
+                            for (h = 0; h < ywsxArr.Length - 1; h++)
+                            {
+                            <input type="text" value="@ywsxArr[h]" id="@(h+1)" name="@(h + 1) " myattr="ywsx" class="form-control" placeholder="请输入疾病英文缩写" style="width:150px;height:20px;" />
+                            }
+                            <input type="text" myattr="ywsx" id="@(h+1)" name="@(h + 1) " class="form-control" placeholder="请输入疾病英文缩写" style="width:150px;height:20px;" onfocus="AddYWSX(@(h+1));" />
+                            }
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            
+            <div style="width: 100%; clear: both; overflow: hidden;">
+                <div style="float: left; width: 150px; margin-left: 20px;">
+                    <div>
+                        <select id="Modules" name="Modules" multiple="multiple" style="width: 140px; height: 350px" onchange="changeTitle()">
+                            @foreach (var m in Model.OrderBy(u => u.VModulesId))
+                            {
+                                <option value="@m.VModulesId">@m.VModulesName</option>
+                            }
+                        </select> 
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <input type="button" value="新增" style="width: 135px;" class="btn btn-success" id="XinZeng" name="XinZeng" data-toggle="modal" data-target="#myModal" />
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <input type="button" value="移除" style="width: 135px;" class="btn btn-success" id="YiChu" name="YiChu" onclick="YiChuC()" />
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <input type="button" value="上移" style="width: 135px;" class="btn btn-success" id="ShangYi" name="ShangYi" onclick="ShangYiC()" />
+                    </div>
+                </div>
+                <div id="myTabContent" style="width: 100%; margin-left: 180px">
+                    <script id="UEContent" name="UEContent" type="text/plain" style="width: 90%; height: 400px;">
+                      @Html.Raw(Model.OrderBy(u=>u.VModulesId).FirstOrDefault().VModulesContent)
+                     </script>   
+                     
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <input type="button" value="修改" class="btn btn-success" id="TiJiao" name="TiJiao" onclick="Update()" />
+                <input type="button" value="重置" class="btn btn-default" id="ChongZhi" name="ChongZhi" onclick="Clear()" />
+            </div>
+        </form>
+    </body>
+</html>

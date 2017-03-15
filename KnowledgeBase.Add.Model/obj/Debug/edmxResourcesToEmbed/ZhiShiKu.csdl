@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZhiShiKuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dept">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeptCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModulesId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModulesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="ZhiShiKuEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Dept" EntityType="Self.Dept" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <EntitySet Name="Test" EntityType="ZhiShiKuModel.Test" />
+    <EntitySet Name="UserInfoSelect" EntityType="ZhiShiKuModel.UserInfoSelect" />
+    <EntitySet Name="BigCodeName" EntityType="ZhiShiKuModel.BigCodeName" />
+    <EntitySet Name="DiseaseCodeName" EntityType="ZhiShiKuModel.DiseaseCodeName" />
+    <EntitySet Name="SmallCodeName" EntityType="ZhiShiKuModel.SmallCodeName" />
+    <EntitySet Name="DiseaseInfo" EntityType="ZhiShiKuModel.DiseaseInfo" />
+    <EntitySet Name="ModulesContents" EntityType="ZhiShiKuModel.ModulesContents" />
+    <AssociationSet Name="FK_ModulesContents_DiseaseInfo" Association="ZhiShiKuModel.FK_ModulesContents_DiseaseInfo">
+      <End Role="DiseaseInfo" EntitySet="DiseaseInfo" />
+      <End Role="ModulesContents" EntitySet="ModulesContents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Test">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Ueditor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserInfoSelect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsPrint" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BigCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="DiseaseCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SmallCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DiseaseInfo">
+    <Key>
+      <PropertyRef Name="DiseaseCode" />
+    </Key>
+    <Property Name="DiseaseCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiseaseName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Spell" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="YWMC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="YWSX" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LuRu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JiaoDui" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShenHe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LuRuId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JiaoDuiId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShenHeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JDStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ModulesContents" Relationship="ZhiShiKuModel.FK_ModulesContents_DiseaseInfo" FromRole="DiseaseInfo" ToRole="ModulesContents" />
+  </EntityType>
+  <EntityType Name="ModulesContents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiseaseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModulesId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModulesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModulesContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DiseaseInfo" Relationship="ZhiShiKuModel.FK_ModulesContents_DiseaseInfo" FromRole="ModulesContents" ToRole="DiseaseInfo" />
+  </EntityType>
+  <Association Name="FK_ModulesContents_DiseaseInfo">
+    <End Type="ZhiShiKuModel.DiseaseInfo" Role="DiseaseInfo" Multiplicity="0..1" />
+    <End Type="ZhiShiKuModel.ModulesContents" Role="ModulesContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiseaseInfo">
+        <PropertyRef Name="DiseaseCode" />
+      </Principal>
+      <Dependent Role="ModulesContents">
+        <PropertyRef Name="DiseaseCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

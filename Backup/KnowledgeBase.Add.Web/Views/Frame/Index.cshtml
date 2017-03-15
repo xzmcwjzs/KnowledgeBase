@@ -1,0 +1,104 @@
+﻿@using KnowledgeBase.Add.Model
+@using KnowledgeBase.Add.Common
+@{
+    Layout = null;
+    UserInfo userInfoModel = ViewBag.UserInfo;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>疾病知识库系统平台</title>
+    <script src="~/Scripts/MyJs/global.js"></script>
+    <link href="~/Content/MyCSS/global.css" rel="stylesheet" />
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        function Quit() {
+            top.window.opener = top;
+            top.window.open('@Url.Action("Index","Login")','_self', '');
+        }
+    </script>
+</head>
+<body>
+    <div style="height: 100%; width: 100%;">
+        <table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;">
+            <tr>
+                <td style="height: 30px;">
+                    <table style="height: 38px;width:100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" style="background-color: #0354de;width:100%">
+                                    <tr>
+                                        <td width="290" align="left" style="padding-left: 10px; background-color: white;">
+                                            <div style="color: blue; font-size: 20px; font-weight: bold;">疾病知识库系统平台</div>
+                                        </td>
+                                        <td rowspan="2" height="26" align="left" style="background-image: url(/images/main/top_logo_bg.gif);">
+                                            <div style="color: red; font-size: 16px; font-weight: bold;padding-top:5px;">
+                                                权限：@{
+                                                    if (userInfoModel.Remark.Contains("1"))
+                                                    {
+                                                        <span>录入</span>
+                                                    }<a style="padding-left:2px;"></a>
+                                                   if (userInfoModel.Remark.Contains("2"))
+                                                    {
+                                                        <span>校对</span>
+                                                    }<a style="padding-left:2px;"></a>
+                                                    if (userInfoModel.Remark.Contains("3"))
+                                                    {
+                                                        <span>审核</span>
+                                                    }
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="height: 5px; background-image: url(/images/main/top_logo_bg.gif); "></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="white" style="background-color: #0066cc;">
+                                    <tr>
+                                        <td align="right" style="height:20px;">
+
+                                            <span style="color: White;">当前用户:</span>
+                                            @Html.Label(CommonFunc.SafeGetStringFromObj(userInfoModel.RealName), new { style = "color:white" })
+                                            <a style="color: White;text-decoration:none" href="javascript:OpenTopWindow('@Url.Action("ModifyPassword", "Frame", new {identity=CommonFunc.SafeGetStringFromObj(userInfoModel.Id), name=CommonFunc.SafeGetStringFromObj(userInfoModel.Name)})',500,140);">(修改密码)</a>
+                                            <span>&nbsp;</span>
+                                            <span style="color: White;">日期:</span>
+                                            @Html.Label(DateTime.Now.ToString("yyyy年MM月dd日"), new { style = "color:white" })
+                                            <span>&nbsp;</span>
+                                            <a style="color: White;text-decoration:none" href="#" onclick="Quit()">安全退出</a>
+                                            <span>&nbsp;</span>
+
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 100%; width: 100%;">
+                    <iframe frameborder="0" id="MainFrame" name="MainFrame" scrolling="auto" src='@Url.Action("MainFrame")' style="height: 100%; width: 100%; visibility: inherit; "></iframe>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

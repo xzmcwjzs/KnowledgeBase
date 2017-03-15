@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZhiShiKuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BigCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Dept">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeptName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeptCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DiseaseCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DiseaseInfo">
+    <Key>
+      <PropertyRef Name="DiseaseCode" />
+    </Key>
+    <Property Name="DiseaseCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DiseaseName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Spell" Type="nvarchar" MaxLength="500" />
+    <Property Name="YWMC" Type="nvarchar" MaxLength="500" />
+    <Property Name="YWSX" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="LuRu" Type="nvarchar" MaxLength="50" />
+    <Property Name="JiaoDui" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShenHe" Type="nvarchar" MaxLength="50" />
+    <Property Name="LuRuId" Type="nvarchar" MaxLength="50" />
+    <Property Name="JiaoDuiId" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShenHeId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="JDStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ModulesId" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModulesName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ModulesContents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DiseaseCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModulesId" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModulesName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModulesContent" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SmallCodeName">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Test">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar(max)" />
+    <Property Name="Ueditor" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserInfoSelect">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsPrint" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ModulesContents_DiseaseInfo">
+    <End Role="DiseaseInfo" Type="Self.DiseaseInfo" Multiplicity="0..1" />
+    <End Role="ModulesContents" Type="Self.ModulesContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiseaseInfo">
+        <PropertyRef Name="DiseaseCode" />
+      </Principal>
+      <Dependent Role="ModulesContents">
+        <PropertyRef Name="DiseaseCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZhiShiKuModelStoreContainer">
+    <EntitySet Name="BigCodeName" EntityType="Self.BigCodeName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dept" EntityType="Self.Dept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiseaseCodeName" EntityType="Self.DiseaseCodeName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiseaseInfo" EntityType="Self.DiseaseInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModulesContents" EntityType="Self.ModulesContents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SmallCodeName" EntityType="Self.SmallCodeName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfoSelect" EntityType="Self.UserInfoSelect" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ModulesContents_DiseaseInfo" Association="Self.FK_ModulesContents_DiseaseInfo">
+      <End Role="DiseaseInfo" EntitySet="DiseaseInfo" />
+      <End Role="ModulesContents" EntitySet="ModulesContents" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

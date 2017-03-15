@@ -1,0 +1,501 @@
+﻿@using KnowledgeBase.Add.Model.ViewModel
+@using KnowledgeBase.Add.Common
+@model IQueryable<DiseaseContentsViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>查看</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/MyJs/jquery.jqprint-0.3.js"></script>
+    <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+       
+        div {
+            width: 100%;
+        }
+
+        .mylist {
+            width: 100%;
+            float: left;
+        }
+
+            .mylist ul {
+                width: 100%;
+            }
+
+            .mylist li {
+                width: 10%;
+                float: left;
+                display: block;
+            }
+    </style>
+    <script>
+        $(window).load(function () {
+            $('#myTab li:eq(0) a').tab('show');
+            if ($("#ueditor01").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(0)').attr("class", "disabled");
+            }
+            if ($("#ueditor02").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(1)').attr("class", "disabled");
+            }
+            if ($("#ueditor03").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(2)').attr("class", "disabled");
+            }
+            if ($("#ueditor04").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(3)').attr("class", "disabled");
+            }
+            if ($("#ueditor05").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(4)').attr("class", "disabled");
+            }
+            if ($("#ueditor06").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(5)').attr("class", "disabled");
+            }
+            if ($("#ueditor07").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(6)').attr("class", "disabled");
+            }
+            if ($("#ueditor08").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(7)').attr("class", "disabled");
+            }
+            if ($("#ueditor09").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(8)').attr("class", "disabled");
+            }
+            if ($("#ueditor10").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(9)').attr("class", "disabled");
+            }
+            if ($("#ueditor11").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(10)').attr("class", "disabled");
+            }
+            if ($("#ueditor12").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(11)').attr("class", "disabled");
+            }
+            if ($("#ueditor13").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(12)').attr("class", "disabled");
+            }
+            if ($("#ueditor14").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(13)').attr("class", "disabled");
+            }
+            if ($("#ueditor15").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(14)').attr("class", "disabled");
+            }
+            if ($("#ueditor16").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(15)').attr("class", "disabled");
+            }
+            if ($("#ueditor17").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(16)').attr("class", "disabled");
+            }
+            if ($("#ueditor18").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(17)').attr("class", "disabled");
+            }
+            if ($("#ueditor19").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(18)').attr("class", "disabled");
+            }
+            if ($("#ueditor20").html().indexOf("<span>") < 0) {
+                $('#myTab li:eq(19)').attr("class", "disabled");
+            }
+
+        });
+       
+        $(function () {
+            $("#print").click(function () {
+                $("#myUl").hide();
+                $("#myTabContent").hide();
+                $("#printContents").show().jqprint();
+            });
+        })
+    </script>
+
+</head>
+<body>
+        @{
+            DiseaseContentsViewModel diseaseContentsViewModel = ViewData.Model.FirstOrDefault();
+            string DiseaseCode = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseCode);
+            string DiseaseName = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VDiseaseName);
+            string Spell = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VSpell);
+            string YWMC = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWMC);
+            string YWSX = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VYWSX);
+            string CreateTime = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VCreateTime);
+            string LuRu = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VLuRu);
+            string JiaoDui = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJiaoDui);
+            string ShenHe = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VShenHe);
+            string Status = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VStatus);
+            string JDStatus = CommonFunc.SafeGetStringFromObj(diseaseContentsViewModel.VJDStatus);
+        }
+        <div style="text-align:center;padding-top:5px;"><span style="font-weight:bold;font-size:18pt;">疾病内容查看</span>
+            <span style="font-size:10pt;color:#0088cc;cursor:pointer" id="print">(打印)</span></div>
+        <div class="form-group" style="text-align:center;width:100%;">
+            <table style="text-align:center;width:100%;" class="table table-striped">
+                <tr>
+                    <th width="20%" style="text-align:right">疾病分类号：</th>
+                    <td width="30%" style="text-align:left">@DiseaseCode</td>
+                    <th width="8%" style="text-align: right">录入人：</th>
+                    <td width="8%" style="text-align: left">@LuRu</td>
+                    <th width="8%" style="text-align: right">校对人：</th>
+                    <td width="8%" style="text-align: left">@JiaoDui</td>
+                    <th width="8%" style="text-align: right">审核人：</th>
+                    <td width="8%" style="text-align: left">@ShenHe</td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align:right">
+                        疾病名称：
+                    </th>
+                    <td width="80%" style="text-align:left" colspan="7">
+                        @{
+                            string[] diseaseNameArr = DiseaseName.Split('}');
+                            string diseaseNameList = "";
+                            for (int i = 0; i < diseaseNameArr.Length; i++)
+                            {
+                                diseaseNameList += diseaseNameArr[i] + " ";
+                            }
+                            <span>@diseaseNameList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align: right">疾病名称拼音首字母：</th>
+                    <td width="80%" style="text-align: left" colspan="7">
+                        @{
+                            string[] spellArr = Spell.Split('}');
+                            string spellList = "";
+                            for (int i = 0; i < spellArr.Length; i++)
+                            {
+                                spellList += spellArr[i] + " ";
+                            }
+                            <span>@spellList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align: right">疾病英文全称：</th>
+                    <td width="80%" style="text-align: left" colspan="7">
+                        @{
+                            string[] ywmcArr = YWMC.Split('}');
+                            string ywmcList = "";
+                            for (int i = 0; i < ywmcArr.Length; i++)
+                            {
+                                ywmcList += ywmcArr[i] + " ";
+                            }
+                            <span>@ywmcList</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20%" style="text-align:right">疾病英文缩写：</th>
+                    <td width="80%" style="text-align:left" colspan="7">
+                        @{
+                            string[] ywsxArr = YWSX.Split('}');
+                            string ywsxList = "";
+                            for (int i = 0; i < ywsxArr.Length; i++)
+                            {
+                                ywsxList += ywsxArr[i] + " ";
+                            }
+                            <span>@ywsxList</span>
+                        }
+                    </td>
+                </tr>
+            </table>
+
+        </div> 
+        <div style="text-align: center;display:block" class="mylist" id="myUl">
+            <ul id="myTab" class="nav nav-pills">
+                <li id="li01"><a href="#ueditor01" id="01" name="01" data-toggle="tab" style="width:50px;">定义</a> </li>
+                <li id="li02"><a href="#ueditor02" id="02" name="02" data-toggle="tab" style="width:85px;">分类</a></li>
+                <li id="li03"><a href="#ueditor03" id="03" name="03" data-toggle="tab" style="width:50px;">病因</a></li>
+                <li id="li04"><a href="#ueditor04" id="04" name="04" data-toggle="tab" style="width:80px;">病原</a></li>
+                <li id="li05"><a href="#ueditor05" id="05" name="05" data-toggle="tab" style="width:80px;">流行病学</a></li>
+                <li id="li06"><a href="#ueditor06" id="06" name="06" data-toggle="tab" style="width:80px;">发病机制</a></li>
+                <li id="li07"><a href="#ueditor07" id="07" name="07" data-toggle="tab" style="width:80px;">病理解剖</a></li>
+                <li id="li08"><a href="#ueditor08" id="08" name="08" data-toggle="tab" style="width:80px;">病理生理</a></li>
+                <li id="li09"><a href="#ueditor09" id="09" name="09" data-toggle="tab" style="width:100px;">临床分期/类/级</a></li>
+                <li id="li10"><a href="#ueditor10" id="10" name="10" data-toggle="tab" style="width:80px;">临床表现</a></li>
+                <li id="li11"><a href="#ueditor11" id="11" name="11" data-toggle="tab" style="width:50px;">并发症</a> </li>
+                <li id="li12"><a href="#ueditor12" id="12" name="12" data-toggle="tab" style="width:85px;">实验室检查</a></li>
+                <li id="li13"><a href="#ueditor13" id="13" name="13" data-toggle="tab" style="width:50px;">诊断</a></li>
+                <li id="li14"><a href="#ueditor14" id="14" name="14" data-toggle="tab" style="width:80px;">鉴别诊断</a></li>
+                <li id="li15"><a href="#ueditor15" id="15" name="15" data-toggle="tab" style="width:80px;">治疗</a></li>
+                <li id="li16"><a href="#ueditor16" id="16" name="16" data-toggle="tab" style="width:80px;">预后</a></li>
+                <li id="li17"><a href="#ueditor17" id="17" name="17" data-toggle="tab" style="width:80px;">随访</a></li>
+                <li id="li18"><a href="#ueditor18" id="18" name="18" data-toggle="tab" style="width:80px;">预防</a></li>
+                <li id="li19"><a href="#ueditor19" id="19" name="19" data-toggle="tab" style="width:100px;">最新研究论文</a></li>
+                <li id="li20"><a href="#ueditor20" id="20" name="20" data-toggle="tab" style="width:80px;">参考文献</a></li>
+            </ul>
+        </div>
+        <div id="myTabContent" class="tab-content" style="display:block">
+            <div class="tab-pane fade in active" id="ueditor01"> 
+                    @foreach (var item in ViewData.Model)
+                    {
+                        if (item.VModulesId == "01")
+                        {
+                            <span>@Html.Raw(item.VModulesContent)</span>
+                            break;
+                        }
+                    } 
+            </div>
+            <div class="tab-pane fade in active" id="ueditor02"> 
+                    @foreach (var item in ViewData.Model)
+                    {
+                        if (item.VModulesId == "02")
+                        {
+                            <span>@Html.Raw(item.VModulesContent)</span>
+                            break;
+                        }
+                    } 
+            </div>
+            <div class="tab-pane fade in active" id="ueditor03">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "03")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor04">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "04")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor05">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "05")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor06">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "06")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span>
+                        break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor07">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "07")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span>
+                        break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor08" >
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "08")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor09">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "09")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor10">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "10")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor11" >
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "11")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor12">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "12")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor13">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "13")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor14">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "14")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor15">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "15")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor16">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "16")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor17">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "17")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor18">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "18")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor19">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "19")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+            <div class="tab-pane fade in active" id="ueditor20">
+                @foreach (var item in ViewData.Model)
+                {
+                    if (item.VModulesId == "20")
+                    {
+                        <span>@Html.Raw(item.VModulesContent)</span> break;
+                    }
+                }
+            </div>
+
+
+
+        </div>  
+    <div style="display:none;background-color:#F5F5F5;width:80%;margin-left:10%" id="printContents">
+        @foreach (var item in ViewData.Model.OrderBy(u=>u.VModulesId))
+        {
+            if (item.VModulesId == "01")
+            {
+                <h2>·定义</h2>
+            }  
+            if (item.VModulesId == "02")
+            {
+                <h2>·分类</h2>
+            }  
+            if (item.VModulesId == "03")
+            {
+                <h2>·病因</h2>
+            }  
+            if (item.VModulesId == "04")
+            {
+                <h2>·病原</h2>
+            }  
+            if (item.VModulesId == "05")
+            {
+                <h2>·流行病学</h2>
+            }  
+            if (item.VModulesId == "06")
+            {
+                <h2>·发病机制</h2>
+            }  
+            if (item.VModulesId == "07")
+            {
+                <h2>·病理解剖</h2>
+            }  
+            if (item.VModulesId == "08")
+            {
+                <h2>·病理生理</h2>
+            }  
+            if (item.VModulesId == "09")
+            {
+                <h2>·临床分期/类/级</h2>
+            }  
+            if (item.VModulesId == "10")
+            {
+                <h2>·临床表现</h2>
+            }  
+            if (item.VModulesId == "11")
+            {
+                <h2>·并发症</h2>
+            }  
+            if (item.VModulesId == "12")
+            {
+                <h2>·实验室检查</h2>
+            }  
+            if (item.VModulesId == "13")
+            {
+                <h2>·诊断</h2>
+            }  
+            if (item.VModulesId == "14")
+            {
+                <h2>·鉴别诊断</h2>
+            }  if (item.VModulesId == "15")
+            {
+                <h2>·治疗</h2>
+            }  if (item.VModulesId == "16")
+            {
+                <h2>·预后</h2>
+            }  if (item.VModulesId == "17")
+            {
+                <h2>·随访</h2>
+            }  if (item.VModulesId == "18")
+            {
+                <h2>·预防</h2>
+            }  
+            if (item.VModulesId == "19")
+            {
+                <h2>·最新研究论文</h2>
+            }  if (item.VModulesId == "20")
+            {
+                <h2>·参考文献</h2>
+            }   
+            <P>@Html.Raw(item.VModulesContent)</P>  
+        }
+
+    </div>
+</body>
+</html>

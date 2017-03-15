@@ -1,0 +1,451 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>新增</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/MyAjaxForm.js"></script>
+    <script src="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.min.js"></script>
+    <script src="~/Scripts/MyJs/bootstrap-2.3.3/js/bootstrap.min.js"></script>
+    <script src="~/ueditor/ueditor.config.js"></script>
+    <script src="~/ueditor/ueditor.all.min.js"></script>
+    <script src="~/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link href="~/Scripts/MyJs/bootstrap-2.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/MyJs/jqueryAutocomplete/jquery.autocomplete.css" rel="stylesheet" />
+    <style type="text/css">
+        .table th, .table td, div {
+            text-align: center;
+        }
+
+        div {
+            width: 100%;
+        }
+
+        .mylist {
+            width: 100%;
+            float: left;
+        }
+
+            .mylist ul {
+                width: 100%;
+            }
+
+            .mylist li {
+                width: 10%;
+                float: left;
+                display: block;
+            }
+    </style>
+    <script type="text/javascript">
+        var id="01";
+        var ue01 = UE.getEditor('editor01');
+        var ue02; var ue03; var ue04; var ue05;
+        var ue06; var ue07; var ue08; var ue09; var ue10;
+        var ue11; var ue12; var ue13; var ue14; var ue15;
+        var ue16; var ue17; var ue18; var ue19; var ue20;
+        $(function () {
+
+            $('a[id="01"]').click(function () {
+                var id01 = $('a[id="01"]').attr("name");
+                id = id01;
+            });
+            $('a[id="02"]').click(function () { ue02 = UE.getEditor('editor02'); var id02 = $('a[id="02"]').attr("name"); id = id02 });
+            $('a[id="03"]').click(function () { ue03 = UE.getEditor('editor03'); var id03 = $('a[id="03"]').attr("name"); id = id03 });
+            $('a[id="04"]').click(function () { ue04 = UE.getEditor('editor04'); var id04 = $('a[id="04"]').attr("name"); id = id04 });
+            $('a[id="05"]').click(function () { ue05 = UE.getEditor('editor05'); var id05 = $('a[id="05"]').attr("name"); id = id05 });
+            $('a[id="06"]').click(function () { ue06 = UE.getEditor('editor06'); var id06 = $('a[id="06"]').attr("name"); id = id06 });
+            $('a[id="07"]').click(function () { ue07 = UE.getEditor('editor07'); var id07 = $('a[id="07"]').attr("name"); id = id07 });
+            $('a[id="08"]').click(function () { ue08 = UE.getEditor('editor08'); var id08 = $('a[id="08"]').attr("name"); id = id08 });
+            $('a[id="09"]').click(function () { ue09 = UE.getEditor('editor09'); var id09 = $('a[id="09"]').attr("name"); id = id09 });
+            $('a[id="10"]').click(function () { ue10 = UE.getEditor('editor10'); var id10 = $('a[id="10"]').attr("name"); id = id10 });
+            $('a[id="11"]').click(function () { ue11 = UE.getEditor('editor11'); var id11 = $('a[id="11"]').attr("name"); id = id11 });
+            $('a[id="12"]').click(function () { ue12 = UE.getEditor('editor12'); var id12 = $('a[id="12"]').attr("name"); id = id12 });
+            $('a[id="13"]').click(function () { ue13 = UE.getEditor('editor13'); var id13 = $('a[id="13"]').attr("name"); id = id13 });
+            $('a[id="14"]').click(function () { ue14 = UE.getEditor('editor14'); var id14 = $('a[id="14"]').attr("name"); id = id14 });
+            $('a[id="15"]').click(function () { ue15 = UE.getEditor('editor15'); var id15 = $('a[id="15"]').attr("name"); id = id15 });
+            $('a[id="16"]').click(function () { ue16 = UE.getEditor('editor16'); var id16 = $('a[id="16"]').attr("name"); id = id16 });
+            $('a[id="17"]').click(function () { ue17 = UE.getEditor('editor17'); var id17 = $('a[id="17"]').attr("name"); id = id17 });
+            $('a[id="18"]').click(function () { ue18 = UE.getEditor('editor18'); var id18 = $('a[id="18"]').attr("name"); id = id18 });
+            $('a[id="19"]').click(function () { ue19 = UE.getEditor('editor19'); var id19 = $('a[id="19"]').attr("name"); id = id19 });
+            $('a[id="20"]').click(function () { ue20 = UE.getEditor('editor20'); var id20 = $('a[id="20"]').attr("name"); id = id20 });
+
+        });
+
+        function AddDiseaseName(num) {
+            if ($("#DiseaseCode").val() == "") {
+                alert("请先填写疾病分类号");
+                return false;
+            }
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = ' <tr id="add' + addNum + '">' +
+'                    <td width="20%" style="text-align:right">' +
+'                        <span style="font-weight: bold; font-size: 13pt;">疾病名称' + addNum + '</span><span style="color:red">*</span>：' +
+'                    </td>' +
+'                    <td width="30%" style="text-align:left">' +
+'                        <input type="text" myattr="diseaseName" id="DiseaseName' + addNum + '" name="DiseaseName' + addNum + '" class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" onfocus="AddDiseaseName(' + addNum + ');"/>' +
+'                    </td>' +
+'                    <td width="20%" style="text-align:right">' +
+'                        <span style="font-weight: bold; font-size: 13pt;">疾病名称拼音首字母' + addNum + '</span><span style="color:red">*</span>：' +
+'                    </td>' +
+'                    <td width="30%" style="text-align:left">' +
+'                        <input type="text" myattr="spell" id="Spell' + addNum + '" name="Spell' + addNum + '" class="form-control1" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" />' +
+'                    </td>' +
+'                </tr>';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#DiseaseName" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("tr[id='add" + num + "']").after(strHtml);
+                $("#DiseaseName" + num).removeAttr("onfocus");
+
+            } else {
+                $("tr[id='add" + num + "']").after(strHtml);
+                $("#DiseaseName" + num).removeAttr("onfocus");
+            }
+        }
+
+        function AddQC(num) {
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = '<input type="text" myattr="ywmc" id="YWMC' + addNum + '" name="YWMC' + addNum + '" class="form-control" placeholder="请输入疾病英文全称' + addNum + '" style="width:150px;height:20px;" onfocus="AddQC(' + addNum + ');" />';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#YWMC" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("#addQC1").append(strHtml);
+                $("#YWMC" + num).removeAttr("onfocus");
+
+            } else {
+                $("#addQC1").append(strHtml);
+                $("#YWMC" + num).removeAttr("onfocus");
+            }
+        }
+
+        function AddSX(num) {
+            var plusNum = num - 1;
+            var addNum = num + 1;
+            var strHtml = '<input type="text" myattr="ywsx" id="YWSX' + addNum + '" name="YWSX' + addNum + '" class="form-control" placeholder="请输入疾病英文缩写' + addNum + '" style="width:150px;height:20px;" onfocus="AddSX(' + addNum + ');" />';
+            if (plusNum >= 1) {
+                for (i = plusNum; i >= 1; i--) {
+                    if ($("#YWSX" + i).val() == "") {
+                        return false;
+                    }
+                }
+                $("#addSX1").append(strHtml);
+                $("#YWSX" + num).removeAttr("onfocus");
+
+            } else {
+                $("#addSX1").append(strHtml);
+                $("#YWSX" + num).removeAttr("onfocus");
+            }
+        }
+
+        function SaveOrUpdate() {
+            var nowUE = ue01;
+            if (id == "01") { nowUE = ue01; } else if (id == "02") { nowUE = ue02; }
+            else if (id == "03") { nowUE = ue03; } else if (id == "04") { nowUE = ue04; }
+            else if (id == "05") { nowUE = ue05; } else if (id == "06") { nowUE = ue06; }
+            else if (id == "07") { nowUE = ue07; } else if (id == "08") { nowUE = ue08; }
+            else if (id == "09") { nowUE = ue09; } else if (id == "10") { nowUE = ue10; }
+            else if (id == "11") { nowUE = ue11; } else if (id == "12") { nowUE = ue12; }
+            else if (id == "13") { nowUE = ue13; } else if (id == "14") { nowUE = ue14; }
+            else if (id == "15") { nowUE = ue15; } else if (id == "16") { nowUE = ue16; }
+            else if (id == "17") { nowUE = ue17; } else if (id == "18") { nowUE = ue18; }
+            else if (id == "19") { nowUE = ue19; } else { nowUE = ue20; }
+            var ueContent = nowUE.getContent();
+            var diseaseNameList = ""; var spellList = ""; var ywmcList = ""; var ywsxList = ""; 
+            $("input[myattr='diseaseName']").each(function (i) {
+                if ($(this).val() != "") {
+                    diseaseNameList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='spell']").each(function (i) {
+                if ($(this).val() != "") {
+                    spellList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='ywmc']").each(function (i) {
+                if ($(this).val() != "") {
+                    ywmcList += $(this).val() + "}";
+                }
+            });
+            $("input[myattr='ywsx']").each(function (i) {
+                if ($(this).val() != "") {
+                    ywsxList += $(this).val() + "}";
+                }
+            });
+            if ($("#DiseaseCode").val() == "") { alert("疾病分类号不能为空"); return; }
+            if ($("#LuRu").val() == "") { alert("录入人不能为空"); return; }
+            if ($("#DiseaseName1").val() == "") { alert("疾病名称1不能为空"); return; }
+            if ($("#Spell1").val() == "") { alert("疾病名称拼音首字母1不能为空"); return; }
+            if ($("#YWMC1").val() == "") { alert("疾病英文全称不能为空"); return; }
+            if (ueContent == "") {
+                alert("该模块内容为空，无法进行提交");
+                return;
+            }
+            $.ajax({
+                cache: false,
+                asycn: true,
+                type: "post",
+                url: '@Url.Action("AddOrUpdate")',
+                dataType: "text",
+                data: {
+                    id: id, diseaseCode: $("#DiseaseCode").val(), luRu: $("#LuRu").val(), luRuId: $("#LuRuId").val(), diseaseNameList: diseaseNameList,
+                spellList:spellList,ywmcList:ywmcList,ywsxList:ywsxList,ueContent:ueContent},
+                success: function (data) {
+                    var jsonArr = eval("(" + data + ")");
+                    if (jsonArr.status == "error") {
+                        alert(jsonArr.msg);
+                        return;
+                    } else {
+                        alert(jsonArr.msg);
+                        window.opener.parent.frames.bodyFrame.frames.frmright.window.loadPageList(1);
+                    }
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+
+            });
+           
+        }
+
+        function Clear() {
+            var nowUE = ue01;
+            if (id == "01") { nowUE = ue01; } else if (id == "02") { nowUE = ue02; }
+            else if (id == "03") { nowUE = ue03; } else if (id == "04") { nowUE = ue04; }
+            else if (id == "05") { nowUE = ue05; } else if (id == "06") { nowUE = ue06; }
+            else if (id == "07") { nowUE = ue07; } else if (id == "08") { nowUE = ue08; }
+            else if (id == "09") { nowUE = ue09; } else if (id == "10") { nowUE = ue10; }
+            else if (id == "11") { nowUE = ue11; } else if (id == "12") { nowUE = ue12; }
+            else if (id == "13") { nowUE = ue13; } else if (id == "14") { nowUE = ue14; }
+            else if (id == "15") { nowUE = ue15; } else if (id == "16") { nowUE = ue16; }
+            else if (id == "17") { nowUE = ue17; } else if (id == "18") { nowUE = ue18; }
+            else if (id == "19") { nowUE = ue19; } else { nowUE = ue20; }
+            nowUE.setContent("");
+        }
+    </script>
+
+</head>
+<body style="margin:0 auto">
+    <form id="form1" name="form1">
+        <div style="text-align:center;padding-top:5px;"><span style="font-weight:bold;font-size:18pt;">疾病内容录入</span></div>
+        <div class="form-group" style="text-align:center;width:100%;">
+            <table style="text-align:center;width:100%;" class="table table-condensed">
+                <tr>
+                    <td width="20%" style="text-align:right">
+                        <span style="font-weight: bold; font-size: 13pt;">疾病分类号</span><span style="color:red">*</span>：
+                    </td>
+                    <td width="30%" style="text-align:left">
+                        <input type="text" id="DiseaseCode" name="DiseaseCode" class="form-control" placeholder="请输入疾病分类号" style="width:150px;height:20px;" />
+                    </td>
+                    <td width="20%" style="text-align: right">
+                        <span style="font-weight: bold; font-size: 13pt;">录入人</span><span style="color:red">*</span>：
+                    </td>
+                    <td width="30%" style="text-align:left">
+                        <input type="text" id="LuRu" name="LuRu" value="@ViewBag.RealName" class="form-control" style="width:80px;height:20px;" readonly="readonly" />
+                        <input type="hidden" id="LuRuId" name="LuRuId" value="@ViewBag.Name"/>
+                    </td>
+                </tr>
+                <tr id="add1">
+                    <td width="20%" style="text-align:right">
+                        <span style="font-weight: bold; font-size: 13pt;">疾病名称1</span><span style="color:red">*</span>：
+                    </td>
+                    <td width="30%" style="text-align:left">
+                        <input type="text" myattr="diseaseName" id="DiseaseName1" name="DiseaseName1" class="form-control" placeholder="请输入疾病名称" style="width:150px;height:20px;" onfocus="AddDiseaseName(1);" />
+                    </td>
+                    <td width="20%" style="text-align:right">
+                        <span style="font-weight: bold; font-size: 13pt;">疾病名称拼音首字母1</span><span style="color:red">*</span>：
+                    </td>
+                    <td width="30%" style="text-align:left">
+                        <input type="text" myattr="spell" id="Spell1" name="Spell1" class="form-control1" placeholder="请输入疾病名称拼音首字母" style="width:150px;height:20px;" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="20%" style="text-align:right">
+                        <span style="font-weight: bold; font-size: 13pt;">疾病英文全称</span><span style="color:red">*</span>：
+                    </td>
+                    <td width="80%" style="text-align:left" colspan="3" id="addQC1">
+                        <input type="text" myattr="ywmc" id="YWMC1" name="YWMC1" class="form-control" placeholder="请输入疾病英文全称1" style="width:150px;height:20px;" onfocus="AddQC(1);" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="20%" style="text-align:right">
+                        <span style="font-weight: bold; font-size: 13pt;">疾病英文缩写</span>：
+                    </td>
+                    <td width="80%" style="text-align:left" colspan="3" id="addSX1">
+                        <input type="text" myattr="ywsx" id="YWSX1" name="YWSX1" class="form-control" placeholder="请输入疾病英文缩写1" style="width:150px;height:20px;" onfocus="AddSX(1);" />
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div style="text-align: center;" class="mylist">
+            <ul id="myTab" class="nav nav-pills">
+                <li class="active"><a href="#ueditor01" id="01" name="01" data-toggle="tab" style="width:50px;">定义</a> </li>
+                <li><a href="#ueditor02" id="02" name="02" data-toggle="tab" style="width:85px;">分类</a></li>
+                <li><a href="#ueditor03" id="03" name="03" data-toggle="tab" style="width:50px;">病因</a></li>
+                <li><a href="#ueditor04" id="04" name="04" data-toggle="tab" style="width:80px;">病原</a></li>
+                <li><a href="#ueditor05" id="05" name="05" data-toggle="tab" style="width:80px;">流行病学</a></li>
+                <li><a href="#ueditor06" id="06" name="06" data-toggle="tab" style="width:80px;">发病机制</a></li>
+                <li><a href="#ueditor07" id="07" name="07" data-toggle="tab" style="width:80px;">病理解剖</a></li>
+                <li><a href="#ueditor08" id="08" name="08" data-toggle="tab" style="width:80px;">病理生理</a></li>
+                <li><a href="#ueditor09" id="09" name="09" data-toggle="tab" style="width:100px;">临床分期/类/级</a></li>
+                <li><a href="#ueditor10" id="10" name="10" data-toggle="tab" style="width:80px;">临床表现</a></li>
+                <li><a href="#ueditor11" id="11" name="11" data-toggle="tab" style="width:50px;">并发症</a> </li>
+                <li><a href="#ueditor12" id="12" name="12" data-toggle="tab" style="width:85px;">实验室检查</a></li>
+                <li><a href="#ueditor13" id="13" name="13" data-toggle="tab" style="width:50px;">诊断</a></li>
+                <li><a href="#ueditor14" id="14" name="14" data-toggle="tab" style="width:80px;">鉴别诊断</a></li>
+                <li><a href="#ueditor15" id="15" name="15" data-toggle="tab" style="width:80px;">治疗</a></li>
+                <li><a href="#ueditor16" id="16" name="16" data-toggle="tab" style="width:80px;">预后</a></li>
+                <li><a href="#ueditor17" id="17" name="17" data-toggle="tab" style="width:80px;">随访</a></li>
+                <li><a href="#ueditor18" id="18" name="18" data-toggle="tab" style="width:80px;">预防</a></li>
+                <li><a href="#ueditor19" id="19" name="19" data-toggle="tab" style="width:100px;">最新研究论文</a></li>
+                <li><a href="#ueditor20" id="20" name="20" data-toggle="tab" style="width:80px;">参考文献</a></li>
+            </ul>
+        </div>
+        <div id="myTabContent" class="tab-content" style="text-align:center;">
+            <div class="tab-pane fade in active" id="ueditor01">
+                <script id="editor01" name="editor01" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor02">
+                <script id="editor02" name="editor02" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor03">
+                <script id="editor03" name="editor03" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor04">
+                <script id="editor04" name="editor04" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor05">
+                <script id="editor05" name="editor05" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor06">
+                <script id="editor06" name="editor06" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor07">
+                <script id="editor07" name="editor07" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor08">
+                <script id="editor08" name="editor08" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor09">
+                <script id="editor09" name="editor09" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor10">
+                <script id="editor10" name="editor10" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor11">
+                <script id="editor11" name="editor11" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor12">
+                <script id="editor12" name="editor12" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor13">
+                <script id="editor13" name="editor13" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor14">
+                <script id="editor14" name="editor14" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor15">
+                <script id="editor15" name="editor15" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor16">
+                <script id="editor16" name="editor16" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor17">
+                <script id="editor17" name="editor17" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor18">
+                <script id="editor18" name="editor18" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor19">
+                <script id="editor19" name="editor19" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+            <div class="tab-pane fade in active" id="ueditor20">
+                <script id="editor20" name="editor20" type="text/plain" style="width:100%;height:400px;">
+                </script>
+            </div>
+
+        </div>
+        <div>
+            <input type="button" value="提交" class="btn btn-success" id="TiJiao" name="TiJiao" onclick="SaveOrUpdate()" />
+            <input type="button" value="重置" class="btn btn-default" id="ChongZhi" name="ChongZhi" onclick="Clear()"/>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                cache: false,
+                type: "get",
+                url: '@Url.Action("AutocompleteDiseaseCode")',
+                dataType: "text",
+                success: function (data) {
+                    jsonArr = eval("(" + data + ")");
+                    $("#DiseaseCode").autocomplete(jsonArr, {
+                        autoFill: false,
+                        matchContains: true,
+                        width: 300,
+                        max: 10,
+                        scrollHeight: 300,
+                        matchContains: true,
+                        matchSubset: true,
+                        matchCase: true,
+                        scroll: true,
+                        formatItem: function (row, i, max) {
+                            return "<span style='font-weight:bold;font-size:12pt;float:left'>" + row.Code + "</span><span style='font-weight:bold;font-size:12pt;float:right;color:green'>[" + row.Name + "]" + "</span>";
+                        },
+                        formatMatch: function (row, i, max) {
+                            return row.Code;
+                        },
+                        formatResult: function (row) {
+                            return row.Code;
+                        }
+                    }).result(function (event, row, formatted) {
+                        $("#DiseaseName1").val(row.Name);
+                        if ($("#DiseaseName2").length <=0) {
+                            AddDiseaseName(1);
+                        } 
+                    });
+
+                },
+                error: function () {
+                    alert("系统繁忙，请联系管理员");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

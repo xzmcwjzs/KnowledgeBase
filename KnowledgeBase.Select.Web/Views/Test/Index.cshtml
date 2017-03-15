@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/MyJs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="~/Scripts/MyJs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $("#divShow").click(function () {
+                $("#div5").hide();
+                $("#div5\\.123").hide();
+            });
+
+            $("#demo").toggle(
+                function () {
+                    $(this).attr("style", "display:none;");//隐藏div
+                },
+                function () {
+                    $(this).attr("style", "display:block;");//显示div
+                }
+            );
+        })
+    </script>
+</head>
+<body>
+    
+    <div id="div5.123">
+        <h1>测试div的id为div5.123时  jquery的操作</h1>
+    </div>
+    <div id="div5">
+        <h1>测试div的id为div5时  jquery的操作</h1>
+    </div>
+    <input type="button" value="消失/显示" id="divShow" name="divShow" />
+    <div id='demo' style="width:900px;height:100px;border:1px solid red">示例</div>
+    @*<div data-role="main" class="ui-content">
+        <form method="post" action="demoform.asp">
+            <div class="ui-content">
+                <input type="search" name="search" id="search" placeholder="搜索内容..."> 
+                <input type="submit" data-inline="true" data-mini="true" value="提交">
+            </div>
+            
+        </form>
+    </div>*@
+
+    @*<div data-role="page" id="page">
+
+        <div data-role="header">
+            <h4>人力资源管理系统 </h4>
+            <a href="#leftpanel" data-icon="gear" class="ui-btn-left" data-mini="true">职位</a>
+            <a href="#rightpanel" data-icon="bars" class="ui-btn-right" data-mini="true">设置</a>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" class="ui-btn-active">人事资料</a></li>
+                    <li><a href="#" class="ui-btn-active">招聘管理</a></li>
+                    <li><a href="#" class="ui-btn-active">考勤管理</a></li>
+                    <li><a href="#" class="ui-btn-active">培训管理</a></li>
+                </ul>
+            </div>
+            <!-- /navbar -->
+
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" data-theme="a">
+                <li>通讯录管理</li>
+                <li>参与培训计划</li>
+                <li>企业公告发布浏览</li>
+                <li>
+                    工资查询
+                </li>
+                <li>
+                    考勤查询
+                </li>
+                <li>
+                    出差查询
+                </li>
+                <li>
+                    休假查询
+                </li>
+
+            </ul>
+
+        </div>
+        <div data-role="panel" id="leftpanel" data-theme="a">
+            <a href="#" data-theme="a" data-role="button" data-icon="arrow-r" data-mini="true" data-inline="true" data-rel="close">返回</a>
+            <ul data-role="listview" data-inset="true" data-theme="a">
+                <li>
+                    项目经理
+                </li>
+                <li>
+                    项目执行经理
+                </li>
+                <li>
+                    技术负责人
+                </li>
+                <li>
+                    生产经理
+                </li>
+                <li>
+                    <select name="slider-flip-m" id="slider-flip-m" data-role="slider" data-mini="true" data-theme="a">
+                        <option value="off">关</option>
+                        <option value="on" selected="">开</option>
+                    </select><h2>离线获取员工资料</h2>
+                </li>
+            </ul>
+
+
+
+
+            <!-- panel content goes here -->
+        </div>
+        <div data-role="panel" id="rightpanel" data-theme="b" data-position="right">
+            <ul data-role="listview" data-inset="true" data-theme="a">
+                <li>用户管理</li>
+                <li>角色管理</li>
+                <li>系统日志</li>
+                <li>密码修改</li>
+                <li>机构管理</li>
+            </ul>
+            <a href="#" data-theme="a" data-role="button" data-icon="check" data-mini="true" data-inline="true" data-rel="close">保存</a>
+            <!-- panel content goes here -->
+        </div>
+        <!-- /panel -->
+        <div data-role="footer">
+            <h1>Copyright 2013 </h1>
+        </div>
+    </div>*@
+     
+</body>
+</html>
